@@ -12,11 +12,7 @@ const style = index => ({
 });
 
 const DraggableBox = ({ data, children, key }) => {
-  const type =
-    data.default.schema.type === "array" ||
-    data.default.schema.type === "object"
-      ? "NESTED_TYPE"
-      : "FIELD_TYPE";
+  const type = "FIELD_TYPE";
 
   const [, drag] = useDrag({
     item: { type: type, data }

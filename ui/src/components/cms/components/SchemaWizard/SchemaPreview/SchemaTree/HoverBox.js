@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { useDrop } from "react-dnd";
+import React, { useState, useRef } from "react";
+import { useDrop, useDrag } from "react-dnd";
 
-function getStyle(backgroundColor, isOverCurrent) {
+function getStyle(isOverCurrent) {
   return {
     color: "white",
-    //backgroundColor,
     textAlign: "center",
     fontSize: "1rem",
     height: "100%",
@@ -12,12 +11,13 @@ function getStyle(backgroundColor, isOverCurrent) {
   };
 }
 
-function HoverBox({ path, propKey, addProperty, children }) {
+function HoverBox({ path, propKey, addProperty, children, name, index, key }) {
   const [hasDropped, setHasDropped] = useState(false);
   const [results, setResults] = useState({});
   const [hasDroppedOnChild, setHasDroppedOnChild] = useState(false);
+  const ref = useRef(null);
   const [{ isOver, isOverCurrent, resultss }, drop] = useDrop({
-    accept: ["FIELD_TYPE", "NESTED_TYPE"],
+    accept: "FIELD_TYPE",
     drop: (item, monitor) => {
       const didDrop = monitor.didDrop();
       if (!didDrop) {
@@ -37,8 +37,13 @@ function HoverBox({ path, propKey, addProperty, children }) {
   if (isOverCurrent) {
     backgroundColor = "darkgreen";
   }
+
   return (
-    <div ref={drop} style={getStyle(backgroundColor, isOverCurrent)}>
+    <div
+      ref={drop}
+      style={getStyle(backgroundColor, isOverCurrent)}
+      index={index}
+    >
       {children}
     </div>
   );

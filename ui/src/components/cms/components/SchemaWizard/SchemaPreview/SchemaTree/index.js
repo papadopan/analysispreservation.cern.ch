@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { PropTypes } from "prop-types";
 
 import Box from "grommet/components/Box";
@@ -9,7 +9,13 @@ import Form from "react-jsonschema-form";
 import SchemaTreeItem from "./SchemaTreeItem";
 
 import HoverBox from "./HoverBox";
-import { addByPath } from "../../../../../../actions/schemaWizard";
+import SortableBox from "./SortableBox";
+import update from "immutability-helper";
+
+import {
+  addByPath,
+  updateUiSchemaByPath
+} from "../../../../../../actions/schemaWizard";
 
 import ViewIcon from "grommet/components/icons/base/View";
 
@@ -21,12 +27,12 @@ class SchemaTree extends React.Component {
       <Box style={{ height: "100%", display: "flex", flexDirection: "column" }}>
         <Form
           schema={transformSchema(this.props.schema.toJS())}
-          uiSchema={{}}
+          uiSchema={this.props.uiSchema.toJS()}
           formData={{}}
           showErrorList={false}
           tagName="div"
           FieldTemplate={_FieldTemplate}
-          ObjectFieldTemplate={ObjectFieldTemplate}
+          ObjectFieldTemplate={_ObjectFieldTemplate}
           ArrayFieldTemplate={_ArrayFieldTemplate}
           liveValidate={true}
           widgets={widgets}
@@ -42,12 +48,84 @@ class SchemaTree extends React.Component {
 }
 
 let ObjectFieldTemplate = function(props) {
+  const [myList, setmyList] = useState([]);
+  useEffect(
+    () => {
+      props.properties.map(prop => {
+        prop.name === null || prop.name === undefined || prop.name === "*"
+          ? null
+          : myList.includes(prop.name)
+            ? null
+            : setmyList([...myList, prop.name]);
+      });
+      return () => {
+        console.log("Return");
+      };
+    },
+    [props.properties]
+  );
+
+  const moveBox = useCallback(
+    (dragIndex, hoverIndex) => {
+      let { "ui:order": uiOrder = [], ...rest } = props.uiSchema;
+      setmyList([]);
+      // when it fetches the uiorder make sure that the asterisk or any other
+      // un accepted characarter is removed
+      props.properties.map(prop => {
+        prop.name === null || prop.name === undefined || prop.name === "*"
+          ? null
+          : myList.includes(prop.name)
+            ? null
+            : setmyList([...myList, prop.name]);
+      });
+
+      const dragItem = myList[dragIndex];
+      dragItem === null || dragItem === undefined
+        ? null
+        : setmyList(
+            update(myList, {
+              $splice: [[dragIndex, 1], [hoverIndex, 0, dragItem]]
+            })
+          );
+      // when the ui:order is updated, the asterisk is appended in the end,
+      // in order to accept new added components and order them in the end of the list
+      props.onUiSchemaChange(
+        props.formContext.uiSchema.length > 0 ? props.formContext.uiSchema : [],
+        {
+          ...rest,
+          "ui:order": [...myList, "*"]
+        }
+      );
+    },
+    [myList]
+  );
   if (props.idSchema.$id == "root") {
-    return <Box>{props.properties.map(prop => prop.content)}</Box>;
+    return (
+      <Box>
+        {props.properties.map((prop, index) =>
+          renderContent(prop, index, moveBox, props.formContext.uiSchema)
+        )}
+      </Box>
+    );
   }
 };
 
+const renderContent = (prop, index, moveBox, _id) => {
+  return (
+    <SortableBox
+      key={prop.name}
+      index={index}
+      name={prop.name}
+      moveBox={moveBox}
+      _id={_id}
+    >
+      {prop.content}
+    </SortableBox>
+  );
+};
+
 let ArrayFieldTemplate = function(props) {
+  const [display, setDisplay] = useState(true);
   let { schema: schemaPath, uiSchema: uiSchemaPath } = props.rawErrors[0];
   let _path = {
     schema: [...props.formContext.schema, ...schemaPath, "items"],
@@ -58,39 +136,56 @@ let ArrayFieldTemplate = function(props) {
     schema: [...props.formContext.schema, ...schemaPath, "items"],
     uiSchema: [...props.formContext.uiSchema, ...uiSchemaPath]
   };
-
   return (
-    <Box flex={true}>
-      <SchemaTreeItem type="array" {...props} path={__path} />
-
-      <Box flex={true} margin={{ left: "medium" }}>
-        <HoverBox addProperty={props.addProperty} key={props.id} path={_path}>
-          <div style={{ borderBottom: "5px solid #e6e6e6" }} />
-          <Form
-            schema={props.schema.items}
-            uiSchema={{}}
-            formData={{}}
-            tagName="div"
-            widgets={widgets}
-            showErrorList={false}
-            FieldTemplate={_FieldTemplate}
-            ObjectFieldTemplate={ObjectFieldTemplate}
-            ArrayFieldTemplate={_ArrayFieldTemplate}
-            liveValidate={true}
-            validate={_validate}
-            noHtml5Validate={true}
-            formContext={_path}
-          >
-            <span />
-          </Form>
-        </HoverBox>
+    <Box flex={true} style={{ position: "relative", overflow: "visible" }}>
+      <div
+        style={{
+          position: "absolute",
+          top: "15px",
+          left: "-15px",
+          cursor: "pointer"
+        }}
+        onClick={() => setDisplay(!display)}
+      >
+        <ViewIcon size="xsmall" colorIndex={display ? "grey-1" : "grey-3-a"} />
+      </div>
+      <Box>
+        <SchemaTreeItem type="array" {...props} path={__path} />
+        {display ? (
+          <Box flex={true} margin={{ left: "medium" }}>
+            <HoverBox
+              addProperty={props.addProperty}
+              key={props.id}
+              path={_path}
+            >
+              <div style={{ borderBottom: "5px solid #e6e6e6" }} />
+              <Form
+                schema={props.schema.items}
+                uiSchema={props.uiSchema}
+                formData={{}}
+                tagName="div"
+                widgets={widgets}
+                showErrorList={false}
+                FieldTemplate={_FieldTemplate}
+                ObjectFieldTemplate={_ObjectFieldTemplate}
+                ArrayFieldTemplate={_ArrayFieldTemplate}
+                liveValidate={true}
+                validate={_validate}
+                noHtml5Validate={true}
+                formContext={_path}
+              >
+                <span />
+              </Form>
+            </HoverBox>
+          </Box>
+        ) : null}
       </Box>
     </Box>
   );
 };
 
 let FieldTemplate = function(props) {
-  const { schema, rawErrors = [], children, formContext } = props;
+  const { schema, uiSchema, rawErrors = [], children, formContext } = props;
 
   const [display, setDisplay] = useState(true);
   let path = {
@@ -116,7 +211,7 @@ let FieldTemplate = function(props) {
   if (["array"].indexOf(schema.type) > -1) {
     _renderObjectArray = (
       <HoverBox addProperty={props.addProperty} key={props.id} path={path}>
-        <Box>{children}</Box>
+        {children}
       </HoverBox>
     );
   } else if (["object"].indexOf(schema.type) > -1) {
@@ -142,13 +237,13 @@ let FieldTemplate = function(props) {
           <Box flex={true} margin={{ left: "medium" }}>
             <Form
               schema={schema}
-              uiSchema={{}}
+              uiSchema={uiSchema}
               formData={{}}
               showErrorList={false}
               widgets={widgets}
               tagName="div"
               FieldTemplate={_FieldTemplate}
-              ObjectFieldTemplate={ObjectFieldTemplate}
+              ObjectFieldTemplate={_ObjectFieldTemplate}
               ArrayFieldTemplate={_ArrayFieldTemplate}
               liveValidate={true}
               validate={_validate}
@@ -191,9 +286,16 @@ const widgets = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addProperty: (path, data) => dispatch(addByPath(path, data))
+    addProperty: (path, data) => dispatch(addByPath(path, data)),
+    onUiSchemaChange: (path, schema) =>
+      dispatch(updateUiSchemaByPath(path, schema))
   };
 }
+
+let _ObjectFieldTemplate = connect(
+  state => state,
+  mapDispatchToProps
+)(ObjectFieldTemplate);
 
 let _FieldTemplate = connect(
   state => state,
