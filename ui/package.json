@@ -64,6 +64,7 @@
     "react-router-dom": "^4.3.1",
     "react-router-redux": "5.0.0-alpha.9",
     "react-split-pane": "0.1.74",
+    "react-spring": "8.0.27",
     "react-tagsinput": "3.19.0",
     "react-timeago": "4.4.0",
     "react-tooltip": "^3.9.0",
