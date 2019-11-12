@@ -14,8 +14,8 @@ import Spinning from "grommet/components/icons/Spinning";
 
 const RenderReadOnlyText = props => (
   <Box flex={true} pad={props.pad || { horizontal: "medium" }}>
-    <Paragraph size="small" margin="none" style={{ color: "#a8a8a8" }}>
-      {props.value || "empty value from the user"}
+    <Paragraph size="small" margin="none" style={{ cursor: "default" }}>
+      {props.value || "No value provided"}
     </Paragraph>
   </Box>
 );
