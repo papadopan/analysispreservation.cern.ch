@@ -49,7 +49,7 @@ class DraftPreview extends React.Component {
     return (
       <Box id="deposit-page" flex={true}>
         {this.props.error ? this.showToaster(this.props.error.message) : null}
-
+        {console.log("bcskdjhbckhjdbavbjkhf", this.props.schemas.uiSchema)}
         <Box direction="row" flex={true} wrap={false}>
           {this.props.schemas && this.props.schemas.schema ? (
             <Box flex={true}>

@@ -14,14 +14,22 @@ class DefaultArrayField extends React.Component {
     return (
       <Box flex={true}>
         <List>
-          {this.props.items.map(element => (
+          {this.props.items.map((element, index) => (
             <ListItem
               pad="none"
               margin={{ bottom: "small" }}
               key={element.index}
               separator="none"
             >
-              <Box flex={true}>{element.children}</Box>
+              <Box
+                pad="small"
+                flex={true}
+                separator={
+                  index === this.props.items.length - 1 ? "none" : "bottom"
+                }
+              >
+                {element.children}
+              </Box>
             </ListItem>
           ))}
         </List>

@@ -14,20 +14,22 @@ let ArrayFieldTemplate = function(props) {
 
   if (uiSchema["ui:array"] === "StringArrayField") {
     return (
-      <Box flex={true} direction="row">
-        <Box size={{ width: "small" }}>
+      <Box flex={true} direction="row" align="center">
+        <Box flex size={{ width: "medium" }}>
           <FieldHeader title={title} />
         </Box>
-        <StringArrayField {...props} />
+        <Box flex>
+          <StringArrayField {...props} />
+        </Box>
       </Box>
     );
   } else
     return (
-      <Box flex={true}>
-        <Box>
-          <FieldHeader title={title} />
+      <Box flex={true} colorIndex="neutral-1-a" pad="small">
+        <Box flex margin={{ bottom: "small" }}>
+          <FieldHeader title={title} strong />
         </Box>
-        <Box>
+        <Box flex>
           <DefaultArrayField {...props} />
         </Box>
       </Box>

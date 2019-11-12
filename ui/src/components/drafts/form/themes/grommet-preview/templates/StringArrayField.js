@@ -12,7 +12,7 @@ class StringArrayField extends React.Component {
 
   render() {
     return (
-      <Box flex={true}>
+      <Box flex={true} direction="row">
         <List>
           {this.props.items.map(element => (
             <ListItem

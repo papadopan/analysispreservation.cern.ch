@@ -12,13 +12,20 @@ let FieldTemplate = function(props) {
   }
 
   return children.props && children.props.formData === undefined ? null : (
-    <Box flex={true} direction="row">
+    <Box
+      flex={true}
+      direction="row"
+      margin={{ vertical: "small" }}
+      align="center"
+    >
       {label ? (
-        <Box>
-          <FieldHeader title={label} />
+        <Box flex>
+          <FieldHeader title={`${label} :`} />
         </Box>
       ) : null}
-      <Box flex={true}>{children}</Box>
+      <Box flex={true} style={{ fontWeight: 600 }}>
+        {children}
+      </Box>
     </Box>
   );
 };
