@@ -26,9 +26,9 @@ class DefaultArrayField extends React.Component {
                       <Box flex={true}>{element.children}</Box>
                       {!this.props.readonly && (
                         <Button
-                          onClick={event =>
-                            element.onDropIndexClick(element.index)(event)
-                          }
+                          onClick={event => {
+                            element.onDropIndexClick(element.index)(event);
+                          }}
                           icon={<FormTrashIcon />}
                         />
                       )}
