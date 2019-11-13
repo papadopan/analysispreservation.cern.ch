@@ -20,10 +20,10 @@ let FieldTemplate = function(props) {
     >
       {label ? (
         <Box flex>
-          <FieldHeader title={`${label} :`} />
+          <FieldHeader title={`${label} :`} strong />
         </Box>
       ) : null}
-      <Box flex={true} style={{ fontWeight: 600 }}>
+      <Box flex style={{ fontWeight: 600 }}>
         {children}
       </Box>
     </Box>

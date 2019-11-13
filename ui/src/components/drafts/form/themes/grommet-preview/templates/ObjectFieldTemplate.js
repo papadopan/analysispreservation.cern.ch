@@ -23,16 +23,20 @@ let ObjectFieldTemplate = function(props) {
     return (
       <Box flex={true}>
         <Box>
-          <FieldHeader title={title} strong />
+          <FieldHeader title={title} />
         </Box>
         <Box>{properties.map(prop => prop.content)}</Box>
       </Box>
     );
   } else {
     return (
-      <Box flex={true} colorIndex="neutral-1" pad="small">
-        <Box margin={{ vertical: "small" }} separator="bottom">
-          <Heading uppercase={true} tag="h3" strong={false}>
+      <Box flex={true} pad="small">
+        <Box
+          margin={{ vertical: "small" }}
+          separator="bottom"
+          colorIndex="neutral-1"
+        >
+          <Heading uppercase tag="h3">
             {title}
           </Heading>
         </Box>
