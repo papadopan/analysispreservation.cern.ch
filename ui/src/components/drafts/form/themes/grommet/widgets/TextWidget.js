@@ -141,7 +141,6 @@ class TextWidget extends Component {
 
   // initiate ORCID search on Enter
   _searchOnEnter = event => {
-    console.log("hvdbskhvbkhj");
     if (event.keyCode === 13 && this.props.options.autofill_from) {
       this.autoFillOtherFields(event);
     } else {
