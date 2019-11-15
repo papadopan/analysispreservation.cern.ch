@@ -23,19 +23,19 @@ let ObjectFieldTemplate = function(props) {
     return (
       <Box flex={true}>
         <Box>
-          <FieldHeader title={title} />
+          <FieldHeader title={title} size="large" />
         </Box>
-        <Box>{properties.map(prop => prop.content)}</Box>
+        {properties.map((prop, index) => (
+          <Box key={index} colorIndex={index % 2 === 0 ? "grey-3" : "grey-4"}>
+            {prop.content}
+          </Box>
+        ))}
       </Box>
     );
   } else {
     return (
       <Box flex={true} pad="small">
-        <Box
-          margin={{ vertical: "small" }}
-          separator="bottom"
-          colorIndex="neutral-1"
-        >
+        <Box margin={{ vertical: "small" }}>
           <Heading uppercase tag="h3">
             {title}
           </Heading>

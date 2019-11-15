@@ -25,8 +25,8 @@ let ArrayFieldTemplate = function(props) {
     );
   } else
     return (
-      <Box flex={true} colorIndex="neutral-1-a" pad="small">
-        <Box flex margin={{ bottom: "small" }}>
+      <Box flex={true} pad="small">
+        <Box flex margin={{ vertical: "small" }}>
           <FieldHeader title={title} strong />
         </Box>
         <Box flex>

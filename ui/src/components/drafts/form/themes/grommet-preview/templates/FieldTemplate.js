@@ -19,13 +19,11 @@ let FieldTemplate = function(props) {
       align="center"
     >
       {label ? (
-        <Box flex>
-          <FieldHeader title={`${label} :`} strong />
+        <Box flex pad="small">
+          <FieldHeader title={`${label} :`} />
         </Box>
       ) : null}
-      <Box flex style={{ fontWeight: 600 }}>
-        {children}
-      </Box>
+      <Box flex>{children}</Box>
     </Box>
   );
 };

@@ -20,6 +20,7 @@ class StringArrayField extends React.Component {
               pad="none"
               key={element.index}
               separator="none"
+              direction="row"
             >
               <Box flex={true}>{element.children}</Box>
             </ListItem>
