@@ -32,18 +32,8 @@ function HoverBox({ path, propKey, addProperty, children, name, index, key }) {
       isOverCurrent: monitor.isOver({ shallow: true })
     })
   });
-
-  let backgroundColor;
-  if (isOverCurrent) {
-    backgroundColor = "darkgreen";
-  }
-
   return (
-    <div
-      ref={drop}
-      style={getStyle(backgroundColor, isOverCurrent)}
-      index={index}
-    >
+    <div ref={drop} style={getStyle(isOverCurrent)} index={index}>
       {children}
     </div>
   );

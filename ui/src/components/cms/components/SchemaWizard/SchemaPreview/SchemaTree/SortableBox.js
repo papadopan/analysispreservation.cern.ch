@@ -4,10 +4,12 @@ import { useDrop, useDrag } from "react-dnd";
 function getStyle(opacity) {
   return {
     color: "white",
+    border: "2px red solid",
     textAlign: "center",
     fontSize: "1rem",
     height: "100%",
-    opacity: opacity
+    opacity: opacity,
+    cursor: "move"
   };
 }
 
@@ -53,11 +55,7 @@ function SortableBox({ children, name, index, moveBox, _id }) {
       // but it's good here for the sake of performance
       // to avoid expensive index searches.
       item.index = hoverIndex;
-    },
-    collect: monitor => ({
-      isOver: monitor.isOver(),
-      isOverCurrent: monitor.isOver({ shallow: true })
-    })
+    }
   });
 
   const [{ isDragging }, drag] = useDrag({
@@ -73,9 +71,8 @@ function SortableBox({ children, name, index, moveBox, _id }) {
 
   const opacity = isDragging ? 0 : 1;
   drag(drop(ref));
-
   return (
-    <div ref={ref} style={getStyle(opacity)} index={index}>
+    <div ref={ref} style={getStyle(opacity)}>
       {children}
     </div>
   );

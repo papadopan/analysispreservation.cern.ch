@@ -49,51 +49,31 @@ class SchemaTree extends React.Component {
 
 let ObjectFieldTemplate = function(props) {
   const [myList, setmyList] = useState([]);
-  useEffect(
-    () => {
-      props.properties.map(prop => {
-        prop.name === null || prop.name === undefined || prop.name === "*"
-          ? null
-          : myList.includes(prop.name)
-            ? null
-            : setmyList([...myList, prop.name]);
-      });
-      return () => {
-        console.log("Return");
-      };
-    },
-    [props.properties]
-  );
-
+  props.properties.map(prop => {
+    prop.name === null || prop.name === undefined
+      ? null
+      : myList.includes(prop.name)
+        ? null
+        : setmyList(myList.concat([prop.name]));
+  });
   const moveBox = useCallback(
     (dragIndex, hoverIndex) => {
       let { "ui:order": uiOrder = [], ...rest } = props.uiSchema;
-      setmyList([]);
-      // when it fetches the uiorder make sure that the asterisk or any other
-      // un accepted characarter is removed
-      props.properties.map(prop => {
-        prop.name === null || prop.name === undefined || prop.name === "*"
-          ? null
-          : myList.includes(prop.name)
-            ? null
-            : setmyList([...myList, prop.name]);
-      });
-
       const dragItem = myList[dragIndex];
-      dragItem === null || dragItem === undefined
-        ? null
-        : setmyList(
-            update(myList, {
-              $splice: [[dragIndex, 1], [hoverIndex, 0, dragItem]]
-            })
-          );
+      setmyList(
+        update(myList, {
+          $splice: [[dragIndex, 1], [hoverIndex, 0, dragItem]]
+        })
+      );
       // when the ui:order is updated, the asterisk is appended in the end,
       // in order to accept new added components and order them in the end of the list
       props.onUiSchemaChange(
         props.formContext.uiSchema.length > 0 ? props.formContext.uiSchema : [],
         {
           ...rest,
-          "ui:order": [...myList, "*"]
+          "ui:order": myList
+            .filter(item => item != undefined || item != null)
+            .concat(["*"])
         }
       );
     },
@@ -101,7 +81,7 @@ let ObjectFieldTemplate = function(props) {
   );
   if (props.idSchema.$id == "root") {
     return (
-      <Box>
+      <Box style={{ background: "red" }}>
         {props.properties.map((prop, index) =>
           renderContent(prop, index, moveBox, props.formContext.uiSchema)
         )}
@@ -109,15 +89,15 @@ let ObjectFieldTemplate = function(props) {
     );
   }
 };
-
 const renderContent = (prop, index, moveBox, _id) => {
   return (
     <SortableBox
       key={prop.name}
+      id={index}
       index={index}
       name={prop.name}
       moveBox={moveBox}
-      _id={_id}
+      _id={`${_id}-${index}`}
     >
       {prop.content}
     </SortableBox>
