@@ -49,8 +49,10 @@ class SchemaTree extends React.Component {
 
 let ObjectFieldTemplate = function(props) {
   const [cards, setCards] = useState([]);
+
+  // create a new array to keep track of the changes in the order
   props.properties.map((prop, index) => {
-    if (cards.length != index) {
+    if (index != cards.length) {
       return;
     }
     let item = {
@@ -58,37 +60,66 @@ let ObjectFieldTemplate = function(props) {
       text: prop.name,
       prop: prop
     };
-    cards.push(item);
+    setCards([...cards, item]);
   });
+  // update the uiSchema after the cards update
+  // removes the ids and updates the ui:orded with the new one
+  // everytyhing else remains the same
+  useEffect(
+    () => {
+      let uiCards = cards.map(item => item.text);
+      let { "ui:order": uiOrder = [], ...rest } = props.uiSchema;
+      // when the ui:order is updated, the asterisk is appended in the end,
+      // in order to accept new added components and order them in the end of the list
+      props.onUiSchemaChange(
+        props.formContext.uiSchema.length > 0 ? props.formContext.uiSchema : [],
+        {
+          ...rest,
+          "ui:order": [...uiCards, "*"]
+        }
+      );
+    },
+    [cards]
+  );
 
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
       const dragCard = cards[dragIndex];
-      setCards(
-        update(cards, {
-          $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
-        })
-      );
-      console.log("updated list", cards);
+      if (dragCard) {
+        setCards(
+          update(cards, {
+            $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
+          })
+        );
+      }
     },
     [cards]
   );
   if (props.idSchema.$id == "root") {
     return (
-      <Box>{cards.map((card, i) => renderContent(card, i, moveCard))}</Box>
+      <Box>
+        {cards.map((card, i) =>
+          renderContent(props.formContext.uiSchema, card, i, moveCard)
+        )}
+      </Box>
     );
   }
 };
-const renderContent = (card, i, moveCard) => {
+const renderContent = (parent, card, i, moveCard) => {
+  if (card === undefined) {
+    return null;
+  }
   return (
     <SortableBox
+      parent={parent}
       key={card.id}
       index={i}
       id={card.id}
-      prop={card}
       text={card.text}
       moveCard={moveCard}
-    />
+    >
+      {card.prop.content}
+    </SortableBox>
   );
 };
 

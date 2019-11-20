@@ -4,21 +4,18 @@ import { useDrop, useDrag } from "react-dnd";
 function getStyle(opacity) {
   return {
     color: "white",
-    border: "2px red solid",
     textAlign: "center",
     fontSize: "1rem",
     height: "100%",
-    padding: "0.5rem 1rem",
-    marginBottom: ".5rem",
     opacity: opacity,
     cursor: "move"
   };
 }
 
-function SortableBox({ id, text, index, moveCard }) {
+function SortableBox({ parent, children, id, index, moveCard }) {
   const ref = useRef(null);
   const [, drop] = useDrop({
-    accept: "REARANGE",
+    accept: `RE-${parent}`,
     hover: (item, monitor) => {
       if (!ref.current) {
         return;
@@ -62,7 +59,7 @@ function SortableBox({ id, text, index, moveCard }) {
 
   const [{ isDragging }, drag] = useDrag({
     item: {
-      type: "REARANGE",
+      type: `RE-${parent}`,
       index,
       id
     },
@@ -75,7 +72,7 @@ function SortableBox({ id, text, index, moveCard }) {
   drag(drop(ref));
   return (
     <div ref={ref} style={getStyle(opacity)}>
-      {text}
+      {children}
     </div>
   );
 }
