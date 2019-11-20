@@ -50,11 +50,15 @@ class SchemaTree extends React.Component {
 let ObjectFieldTemplate = function(props) {
   const [cards, setCards] = useState([]);
   props.properties.map((prop, index) => {
+    if (cards.length != index) {
+      return;
+    }
     let item = {
       id: index + 1,
-      text: prop.name
+      text: prop.name,
+      prop: prop
     };
-    cards.length != index ? null : cards.push(item);
+    cards.push(item);
   });
 
   const moveCard = useCallback(
@@ -65,6 +69,7 @@ let ObjectFieldTemplate = function(props) {
           $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
         })
       );
+      console.log("updated list", cards);
     },
     [cards]
   );
@@ -80,6 +85,7 @@ const renderContent = (card, i, moveCard) => {
       key={card.id}
       index={i}
       id={card.id}
+      prop={card}
       text={card.text}
       moveCard={moveCard}
     />
