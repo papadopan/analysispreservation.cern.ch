@@ -8,15 +8,17 @@ function getStyle(opacity) {
     textAlign: "center",
     fontSize: "1rem",
     height: "100%",
+    padding: "0.5rem 1rem",
+    marginBottom: ".5rem",
     opacity: opacity,
     cursor: "move"
   };
 }
 
-function SortableBox({ children, name, index, moveBox, _id }) {
+function SortableBox({ id, text, index, moveCard }) {
   const ref = useRef(null);
   const [, drop] = useDrop({
-    accept: _id.length > 0 ? `REARANGE-${_id[0]}` : "REARANGE",
+    accept: "REARANGE",
     hover: (item, monitor) => {
       if (!ref.current) {
         return;
@@ -49,7 +51,7 @@ function SortableBox({ children, name, index, moveBox, _id }) {
         return;
       }
       // Time to actually perform the action
-      moveBox(dragIndex, hoverIndex);
+      moveCard(dragIndex, hoverIndex);
       // Note: we're mutating the monitor item here!
       // Generally it's better to avoid mutations,
       // but it's good here for the sake of performance
@@ -60,9 +62,9 @@ function SortableBox({ children, name, index, moveBox, _id }) {
 
   const [{ isDragging }, drag] = useDrag({
     item: {
-      type: _id.length > 0 ? `REARANGE-${_id[0]}` : "REARANGE",
+      type: "REARANGE",
       index,
-      name
+      id
     },
     collect: monitor => ({
       isDragging: monitor.isDragging()
@@ -73,7 +75,7 @@ function SortableBox({ children, name, index, moveBox, _id }) {
   drag(drop(ref));
   return (
     <div ref={ref} style={getStyle(opacity)}>
-      {children}
+      {text}
     </div>
   );
 }

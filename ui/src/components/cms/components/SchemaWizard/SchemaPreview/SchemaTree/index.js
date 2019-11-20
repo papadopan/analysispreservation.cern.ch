@@ -48,59 +48,41 @@ class SchemaTree extends React.Component {
 }
 
 let ObjectFieldTemplate = function(props) {
-  const [myList, setmyList] = useState([]);
-  props.properties.map(prop => {
-    prop.name === null || prop.name === undefined
-      ? null
-      : myList.includes(prop.name)
-        ? null
-        : setmyList(myList.concat([prop.name]));
+  const [cards, setCards] = useState([]);
+  props.properties.map((prop, index) => {
+    let item = {
+      id: index + 1,
+      text: prop.name
+    };
+    cards.length != index ? null : cards.push(item);
   });
-  const moveBox = useCallback(
+
+  const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
-      let { "ui:order": uiOrder = [], ...rest } = props.uiSchema;
-      const dragItem = myList[dragIndex];
-      setmyList(
-        update(myList, {
-          $splice: [[dragIndex, 1], [hoverIndex, 0, dragItem]]
+      const dragCard = cards[dragIndex];
+      setCards(
+        update(cards, {
+          $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
         })
       );
-      // when the ui:order is updated, the asterisk is appended in the end,
-      // in order to accept new added components and order them in the end of the list
-      props.onUiSchemaChange(
-        props.formContext.uiSchema.length > 0 ? props.formContext.uiSchema : [],
-        {
-          ...rest,
-          "ui:order": myList
-            .filter(item => item != undefined || item != null)
-            .concat(["*"])
-        }
-      );
     },
-    [myList]
+    [cards]
   );
   if (props.idSchema.$id == "root") {
     return (
-      <Box style={{ background: "red" }}>
-        {props.properties.map((prop, index) =>
-          renderContent(prop, index, moveBox, props.formContext.uiSchema)
-        )}
-      </Box>
+      <Box>{cards.map((card, i) => renderContent(card, i, moveCard))}</Box>
     );
   }
 };
-const renderContent = (prop, index, moveBox, _id) => {
+const renderContent = (card, i, moveCard) => {
   return (
     <SortableBox
-      key={prop.name}
-      id={index}
-      index={index}
-      name={prop.name}
-      moveBox={moveBox}
-      _id={`${_id}-${index}`}
-    >
-      {prop.content}
-    </SortableBox>
+      key={card.id}
+      index={i}
+      id={card.id}
+      text={card.text}
+      moveCard={moveCard}
+    />
   );
 };
 
