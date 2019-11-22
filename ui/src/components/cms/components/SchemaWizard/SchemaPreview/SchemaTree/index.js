@@ -50,6 +50,15 @@ class SchemaTree extends React.Component {
 let ObjectFieldTemplate = function(props) {
   const [cards, setCards] = useState([]);
 
+  useEffect(
+    () => {
+      cards.map((card, index) => {
+        cards[index].prop = props.properties[index];
+      });
+    },
+    [props.properties]
+  );
+
   // create a new array to keep track of the changes in the order
   props.properties.map((prop, index) => {
     if (index != cards.length) {
@@ -60,6 +69,7 @@ let ObjectFieldTemplate = function(props) {
       text: prop.name,
       prop: prop
     };
+
     setCards([...cards, item]);
   });
   // update the uiSchema after the cards update
