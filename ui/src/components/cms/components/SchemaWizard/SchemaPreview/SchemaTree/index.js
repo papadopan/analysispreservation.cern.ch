@@ -49,11 +49,10 @@ class SchemaTree extends React.Component {
 
 let ObjectFieldTemplate = function(props) {
   const [cards, setCards] = useState([]);
-
   useEffect(
     () => {
       cards.map((card, index) => {
-        cards[index].prop = props.properties[index];
+        card.prop = props.properties[index];
       });
     },
     [props.properties]
@@ -89,7 +88,7 @@ let ObjectFieldTemplate = function(props) {
         }
       );
     },
-    [cards]
+    [cards, props.properties]
   );
 
   const moveCard = useCallback(
