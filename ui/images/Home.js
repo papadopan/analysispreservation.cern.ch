@@ -2,7 +2,7 @@ import React from "react";
 
 import SVGIcon from "grommet/components/SVGIcon";
 
-export const HomeIcon = () => (
+export const HomeIcon = ({ size = "medium" }) => (
   <SVGIcon
     size="huge"
     viewBox="0 0 317 298.12"
@@ -10,6 +10,7 @@ export const HomeIcon = () => (
     version="1.1"
     type="logo"
     a11yTitle="Home"
+    size={size}
   >
     <rect
       x="147.626"

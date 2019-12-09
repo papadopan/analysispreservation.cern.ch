@@ -97,17 +97,17 @@ class WelcomePage extends React.Component {
           </Box>
         </Header>
         <Box full>
-          <Box flex direction="row" justify="between">
+          <Box flex justify="between">
             <Box
               flex
               pad={{ horizontal: "medium" }}
               align="center"
               justify="center"
+              colorIndex="neutral-1"
             >
               <Heading
                 strong
                 style={{
-                  color: "#006996",
                   letterSpacing: "5px",
                   fontSize: "4em"
                 }}
@@ -117,7 +117,6 @@ class WelcomePage extends React.Component {
               <Heading
                 strong
                 style={{
-                  color: "#006996",
                   letterSpacing: "5px",
                   fontSize: "4em"
                 }}
@@ -127,7 +126,6 @@ class WelcomePage extends React.Component {
               <Heading
                 strong
                 style={{
-                  color: "#006996",
                   letterSpacing: "5px",
                   fontSize: "4em"
                 }}
@@ -135,14 +133,8 @@ class WelcomePage extends React.Component {
                 Preservation
               </Heading>
             </Box>
-            <Box
-              flex
-              justify="center"
-              align="center"
-              pad="large"
-              colorIndex="neutral-1-a"
-            >
-              <HomeIcon />
+            <Box flex justify="center" align="center" pad="large">
+              <HomeIcon size="huge" />
               <Box align="center" margin={{ top: "large" }}>
                 <Heading tag="h2" strong style={{ letterSpacing: "3px" }}>
                   A scientific platform to{" "}
@@ -160,45 +152,37 @@ class WelcomePage extends React.Component {
             </Box>
           </Box>
         </Box>
-        <Box full justify="center" direction="row">
-          <Box flex justify="center" align="center" colorIndex="neutral-1-a">
-            <Heading
-              style={{
-                fontSize: "3em",
-                letterSpacing: "2px"
-              }}
-              strong
-            >
-              Discover the platform
-            </Heading>
-          </Box>
-          <Box
-            flex
-            pad={{ horizontal: "medium" }}
-            align="center"
-            justify="center"
-          >
-            <Paragraph size="large">
-              CERN Analysis Preservation (CAP) is a service for physicists to
-              preserve and document the various materials produced in the
-              process of their analyses, e.g. datasets, code, documentation, so
-              that they are reusable and understandable in the future. By using
-              this tool, researchers ensure these outputs are preserved and also
-              findable and accessible by their (internal) collaborators.
-            </Paragraph>
-            <Paragraph size="large">
-              CAP provides an integrated platform that allows researchers to
-              preserve and document the various materials produced in the
-              process of their research and experimentation (datasets, code,
-              documentation) so that they are reusable and understandable in the
-              future. By using this tool, researchers ensure these outputs are
-              preserved, findable and accessible by their collaborators.
-            </Paragraph>
+        <Box full justify="center" align="center">
+          <Box>
+            <Box align="center" justify="center" pad={{ vertical: "medium" }}>
+              <Heading strong style={{ color: "#006996" }}>
+                Discover the platform
+              </Heading>
+            </Box>
+            <Box flex pad={{ horizontal: "medium" }} align="center">
+              <Paragraph size="large">
+                CERN Analysis Preservation (CAP) is a service for physicists to
+                preserve and document the various materials produced in the
+                process of their analyses, e.g. datasets, code, documentation,
+                so that they are reusable and understandable in the future. By
+                using this tool, researchers ensure these outputs are preserved
+                and also findable and accessible by their (internal)
+                collaborators.
+              </Paragraph>
+              <Paragraph size="large">
+                CAP provides an integrated platform that allows researchers to
+                preserve and document the various materials produced in the
+                process of their research and experimentation (datasets, code,
+                documentation) so that they are reusable and understandable in
+                the future. By using this tool, researchers ensure these outputs
+                are preserved, findable and accessible by their collaborators.
+              </Paragraph>
+            </Box>
           </Box>
         </Box>
         <Box full>
           <Box flex direction="row" justify="between">
-            <Box flex justify="center" align="center">
+            <Box flex justify="center" align="center" colorIndex="neutral-1">
               <Box
                 direction="row"
                 justify="center"
@@ -260,7 +244,7 @@ class WelcomePage extends React.Component {
                 </Box>
               </Box>
             </Box>
-            <Box
+            {/* <Box
               flex
               pad={{ horizontal: "medium" }}
               align="center"
@@ -268,7 +252,7 @@ class WelcomePage extends React.Component {
               justify="center"
             >
               <CAPLogo size="huge" />
-            </Box>
+            </Box> */}
           </Box>
         </Box>
         <div className="b">
