@@ -17,7 +17,7 @@ function DashboardList(props) {
   let { header = "", emptyMessage = null, listType, list, ListItem } = props;
 
   return (
-    <Box flex={false} pad={{ vertical: "small" }}>
+    <Box flex={false} pad="small">
       <Box>
         <Box flex direction="row" pad="small" justify="between">
           <Heading

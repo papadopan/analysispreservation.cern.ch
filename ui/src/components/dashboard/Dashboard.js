@@ -13,6 +13,9 @@ import DashboardListItem from "./DashboardListItem";
 import DashboardWorkflowListItem from "./DashboardWorkflowListItem";
 import DashboardMeter from "./components/DashboardMeter";
 import DashboardQuickSearch from "./DashboardQuickSearch";
+import Heading from "grommet/components/Heading";
+import Label from "grommet/components/Label";
+import ReactTooltip from "react-tooltip";
 
 class Dashboard extends React.Component {
   componentDidMount() {
@@ -59,29 +62,15 @@ class Dashboard extends React.Component {
             <Spinning size="large" />
           </Box>
         ) : (
-          <Box colorIndex="light-2" flex align="center">
-            <Box
-              direction="row"
-              wrap
-              align="center"
-              pad={{
-                between: "large",
-                horizontal: "large"
-              }}
-            >
-              <DashboardMeter
-                total={this.props.results.user_count}
-                drafts={this.props.results.user_drafts_count}
-                published={this.props.results.user_published_count}
-              />
+          <Box colorIndex="light-2" flex>
+            <Box direction="row" wrap justify="center">
               <DashboardList
                 listType="draft"
-                list={lists["drafts"]}
                 header="drafts"
+                list={lists["drafts"]}
                 ListItem={DashboardListItem}
                 emptyMessage="Draft analyses that your collaborators have given you read/write access to."
               />
-              <DashboardQuickSearch />
               <DashboardList
                 listType="published"
                 list={lists["published"]}
@@ -89,6 +78,8 @@ class Dashboard extends React.Component {
                 ListItem={DashboardListItem}
                 emptyMessage="All analyses published on CAP by members of your collaboration."
               />
+            </Box>
+            <Box direction="row" wrap justify="center">
               <DashboardList
                 listType="workflows"
                 list={lists["workflows"]}
@@ -96,6 +87,38 @@ class Dashboard extends React.Component {
                 ListItem={DashboardWorkflowListItem}
                 emptyMessage="Recent workflows attached to your content"
               />
+              <Box flex={false} pad="small">
+                <Box>
+                  <Box flex direction="row" pad="small" justify="center">
+                    <Heading
+                      tag="h5"
+                      uppercase={true}
+                      align="start"
+                      justify="center"
+                      margin="none"
+                    >
+                      Stats
+                    </Heading>
+                    <Box direction="row">
+                      <Label margin="none" size="small" uppercase />
+                    </Box>
+                  </Box>
+                </Box>
+                <Box
+                  flex={false}
+                  direction="row"
+                  size={{ height: "medium", width: "xlarge" }}
+                  colorIndex="light-1"
+                  justify="center"
+                >
+                  <DashboardMeter
+                    total={this.props.results.user_count}
+                    drafts={this.props.results.user_drafts_count}
+                    published={this.props.results.user_published_count}
+                  />
+                  {/*<DashboardQuickSearch/>*/}
+                </Box>
+              </Box>
             </Box>
           </Box>
         )}
