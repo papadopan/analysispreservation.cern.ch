@@ -3,7 +3,7 @@ import { useDrag } from "react-dnd";
 import PropTypes from "prop-types";
 
 const style = index => ({
-  border: "2px dashed #f6f6f6",
+  border: "1px dashed #f6f6f6",
   padding: "5px",
   cursor: "move",
   marginBottom: "6px",

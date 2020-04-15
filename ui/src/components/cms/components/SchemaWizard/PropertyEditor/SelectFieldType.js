@@ -81,9 +81,9 @@ class SelectFieldType extends React.Component {
                       <Box
                         onClick={this._onClick.bind(this, type)}
                         flex={false}
-                        pad={{ horizontal: "small" }}
+                        pad="small"
                         direction="row"
-                        justify="between"
+                        justify="center"
                         align="center"
                       >
                         {type.title}
