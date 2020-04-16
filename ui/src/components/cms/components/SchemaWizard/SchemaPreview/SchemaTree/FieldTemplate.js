@@ -49,7 +49,41 @@ const FieldTemplate = props => {
   if (["array"].indexOf(schema.type) > -1) {
     _renderObjectArray = (
       <HoverBox addProperty={props.addProperty} key={props.id} path={path}>
-        <Box>{children}</Box>
+        <Box style={{ position: "relative", overflow: "visible" }}>
+          <div
+            style={{
+              position: "absolute",
+              top: "15px",
+              left: "-20px",
+              cursor: "pointer"
+            }}
+            onClick={() => setDisplay(!display)}
+          >
+            {display2Icon[display]}
+          </div>
+          <SchemaTreeItem type="array" {...props} path={path} />
+          {display ? (
+            <Box flex={true} margin={{ left: "medium" }}>
+              <Form
+                schema={schema}
+                uiSchema={uiSchema}
+                formData={{}}
+                showErrorList={false}
+                widgets={widgets}
+                tagName="div"
+                FieldTemplate={_FieldTemplate}
+                ObjectFieldTemplate={ObjectFieldTemplate}
+                ArrayFieldTemplate={ArrayFieldTemplate}
+                liveValidate={true}
+                validate={_validate}
+                noHtml5Validate={true}
+                formContext={path}
+              >
+                <span />
+              </Form>
+            </Box>
+          ) : null}
+        </Box>
       </HoverBox>
     );
   } else if (["object"].indexOf(schema.type) > -1) {
