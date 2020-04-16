@@ -17,7 +17,7 @@ function HoverBox({ path, propKey, addProperty, children, index }) {
   // const [results, setResults] = useState({});
   // const [hasDroppedOnChild, setHasDroppedOnChild] = useState(false);
   // const ref = useRef(null);
-  const [{ isOverCurrent }, drop] = useDrop({
+  const [{ isOverCurrent, canDrop, isOver }, drop] = useDrop({
     accept: "FIELD_TYPE",
     drop: (item, monitor) => {
       const didDrop = monitor.didDrop();
@@ -30,9 +30,11 @@ function HoverBox({ path, propKey, addProperty, children, index }) {
     },
     collect: monitor => ({
       isOver: monitor.isOver(),
-      isOverCurrent: monitor.isOver({ shallow: true })
+      isOverCurrent: monitor.isOver({ shallow: true }),
+      canDrop: monitor.canDrop()
     })
   });
+
   return (
     <div ref={drop} style={getStyle(isOverCurrent)} index={index}>
       {children}
