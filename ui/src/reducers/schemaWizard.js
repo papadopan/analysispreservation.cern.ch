@@ -11,7 +11,8 @@ import {
   ADD_PROPERTY,
   ADD_PROPERTY_INIT,
   SCHEMA_ERROR,
-  SCHEMA_INIT_REQUEST
+  SCHEMA_INIT_REQUEST,
+  UPDATE_SCHEMAS
 } from "../actions/schemaWizard";
 
 const initialState = Map({
@@ -88,6 +89,11 @@ export default function schemaReducer(state = initialState, action) {
         ["current", "uiSchema", ...action.path],
         fromJS(action.value)
       );
+
+    case UPDATE_SCHEMAS:
+      return state
+        .setIn(["current", "schema"], fromJS(action.schema))
+        .setIn(["current", "uiSchema"], fromJS(action.uiSchema));
     default:
       return state;
   }

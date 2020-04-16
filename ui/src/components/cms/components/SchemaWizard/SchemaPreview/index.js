@@ -5,6 +5,7 @@ import Box from "grommet/components/Box";
 import JSONViewer from "./JSONViewer";
 import { Header, Anchor } from "grommet";
 import SchemaTree from "../../../containers/SchemaTree";
+import DeleteBox from "./SchemaTree/DeleteBox";
 import CodeIcon from "grommet/components/icons/base/Code";
 import TreeIcon from "grommet/components/icons/base/Tree";
 
@@ -61,7 +62,13 @@ class SchemaPreview extends React.Component {
                   Root
                 </Box>
               </Box>,
-              <SchemaTree key="schemaTree" />
+              <SchemaTree key="schemaTree" />,
+              <DeleteBox
+                key="delete"
+                onDelete={this.props.deleteProperty}
+                schema={this.props.schema}
+                uiSchema={this.props.uiSchema}
+              />
             ]
           ) : (
             <Box>
@@ -78,7 +85,8 @@ class SchemaPreview extends React.Component {
 SchemaPreview.propTypes = {
   schema: PropTypes.object,
   uiSchema: PropTypes.object,
-  selectProperty: PropTypes.func
+  selectProperty: PropTypes.func,
+  deleteProperty: PropTypes.func
 };
 
 export default SchemaPreview;

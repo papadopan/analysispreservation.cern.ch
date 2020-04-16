@@ -20,6 +20,8 @@ export const CURRENT_UPDATE_PATH = "CURRENT_UPDATE_PATH";
 export const CURRENT_UPDATE_SCHEMA_PATH = "CURRENT_UPDATE_SCHEMA_PATH";
 export const CURRENT_UPDATE_UI_SCHEMA_PATH = "CURRENT_UPDATE_UI_SCHEMA_PATH";
 
+export const UPDATE_SCHEMAS = "UPDATE_SCHEMAS";
+
 export function schemaError(error) {
   return {
     type: SCHEMA_ERROR,
@@ -254,5 +256,28 @@ export function addProperty(path, key) {
     type: ADD_PROPERTY,
     path,
     key
+  };
+}
+
+export function updateSchemas(schema, uiSchema) {
+  return {
+    type: UPDATE_SCHEMAS,
+    schema,
+    uiSchema
+  };
+}
+
+export function deleteProperty(name, schemas, uiSchemas) {
+  return function(dispatch) {
+    let schema = schemas.toJS();
+    let uiSchema = uiSchemas.toJS();
+
+    delete schema.properties[name];
+    let sa = uiSchema["ui:order"].indexOf(name);
+    if (sa > -1) {
+      uiSchema["ui:order"].splice(sa, 1);
+    }
+
+    dispatch(updateSchemas(schema, uiSchema));
   };
 }

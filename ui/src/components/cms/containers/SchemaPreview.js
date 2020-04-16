@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import SchemaPreview from "../components/SchemaWizard/SchemaPreview";
-import { selectProperty } from "../../../actions/schemaWizard";
+import { selectProperty, deleteProperty } from "../../../actions/schemaWizard";
 
 function mapStateToProps(state) {
   return {
@@ -12,7 +12,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectProperty: path => dispatch(selectProperty(path))
+    selectProperty: path => dispatch(selectProperty(path)),
+    deleteProperty: (name, schema, uiSchema) =>
+      dispatch(deleteProperty(name, schema, uiSchema))
   };
 }
 
