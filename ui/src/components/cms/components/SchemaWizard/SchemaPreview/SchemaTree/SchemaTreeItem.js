@@ -75,12 +75,12 @@ class SchemaTreeItem extends React.Component {
           ) : null}
           {this.props.schema ? (
             <Box direction="row" align="center" wrap={false} flex={false}>
-              {this.props.schema.type == "object" ? (
+              {/* {this.props.schema.type == "object" ? (
                 <FormAddIcon onClick={this._addProperty} />
               ) : null}
               {this.props.schema.type == "array" ? (
                 <FormAddIcon onClick={this._addItem} />
-              ) : null}
+              ) : null} */}
             </Box>
           ) : null}
         </Box>

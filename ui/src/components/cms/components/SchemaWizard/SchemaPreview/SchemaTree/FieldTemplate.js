@@ -11,6 +11,7 @@ import ObjectFieldTemplate from "./ObjectFieldTemplate";
 import { connect } from "react-redux";
 import { addByPath } from "../../../../../../actions/schemaWizard";
 import { _validate } from "./utils/validate";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 const widgets = {
   TextWidget: TextWidget
@@ -19,10 +20,15 @@ const widgets = {
 const FieldTemplate = props => {
   const { schema, uiSchema, rawErrors = [], children, formContext } = props;
 
-  const [display, setDisplay] = useState(true);
+  const [display, setDisplay] = useState(false);
   let path = {
     schema: [...formContext.schema, ...(rawErrors[0].schema || [])],
     uiSchema: [...formContext.uiSchema, ...(rawErrors[0].uiSchema || [])]
+  };
+
+  const display2Icon = {
+    true: <AiOutlineMinus style={{ color: "black" }} />,
+    false: <AiOutlinePlus style={{ color: "black" }} />
   };
 
   if (props.id == "root") {
@@ -53,15 +59,12 @@ const FieldTemplate = props => {
           style={{
             position: "absolute",
             top: "15px",
-            left: "-15px",
+            left: "-20px",
             cursor: "pointer"
           }}
           onClick={() => setDisplay(!display)}
         >
-          <ViewIcon
-            size="xsmall"
-            colorIndex={display ? "grey-1" : "grey-3-a"}
-          />
+          {display2Icon[display]}
         </div>
 
         <SchemaTreeItem type="object" {...props} path={path} />
