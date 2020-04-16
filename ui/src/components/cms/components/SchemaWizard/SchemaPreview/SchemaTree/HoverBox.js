@@ -2,13 +2,13 @@ import React from "react";
 import { useDrop } from "react-dnd";
 import PropTypes from "prop-types";
 
-function getStyle(isOverCurrent) {
+function getStyle(isOverCurrent, dropit) {
   return {
     color: "white",
     textAlign: "center",
     fontSize: "1rem",
     height: "100%",
-    border: isOverCurrent ? "1px dashed black " : null
+    background: dropit & isOverCurrent ? "#000001" : "rgb(206,206,206)"
   };
 }
 
@@ -36,7 +36,11 @@ function HoverBox({ path, propKey, addProperty, children, index }) {
   });
 
   return (
-    <div ref={drop} style={getStyle(isOverCurrent)} index={index}>
+    <div
+      ref={drop}
+      style={getStyle(isOverCurrent, canDrop & isOver)}
+      index={index}
+    >
       {children}
     </div>
   );

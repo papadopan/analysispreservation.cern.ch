@@ -20,7 +20,7 @@ const widgets = {
 const FieldTemplate = props => {
   const { schema, uiSchema, rawErrors = [], children, formContext } = props;
 
-  const [display, setDisplay] = useState(false);
+  const [display, setDisplay] = useState(true);
   let path = {
     schema: [...formContext.schema, ...(rawErrors[0].schema || [])],
     uiSchema: [...formContext.uiSchema, ...(rawErrors[0].uiSchema || [])]
@@ -49,7 +49,8 @@ const FieldTemplate = props => {
   if (["array"].indexOf(schema.type) > -1) {
     _renderObjectArray = (
       <HoverBox addProperty={props.addProperty} key={props.id} path={path}>
-        <Box style={{ position: "relative", overflow: "visible" }}>
+        {children}
+        {/* <Box style={{ position: "relative", overflow: "visible" }}>
           <div
             style={{
               position: "absolute",
@@ -83,7 +84,7 @@ const FieldTemplate = props => {
               </Form>
             </Box>
           ) : null}
-        </Box>
+        </Box> */}
       </HoverBox>
     );
   } else if (["object"].indexOf(schema.type) > -1) {
