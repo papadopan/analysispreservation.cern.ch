@@ -5,13 +5,17 @@ import { Layer, Box, Button, Paragraph } from "grommet";
 
 function getStyle(dropit) {
   return {
-    padding: "10px",
+    padding: "20px",
     cursor: "move",
-    background: "rgb(103,103,103)",
     alignItems: "center",
     display: "flex",
     justifyContent: "center",
-    color: "white"
+    border: "1px dotted black",
+    color: "white",
+    fontWeight: 700,
+    letterSpacing: "3px",
+    background: "red",
+    opacity: dropit ? 1 : 0
   };
 }
 
@@ -41,19 +45,19 @@ function DeleteBox({ index, onDelete }) {
   });
 
   const deleteAndUpdate = () => {
-    onDelete(item.name);
+    onDelete(item);
     setItem(null);
+  };
+
+  const _renderMessage = item => {
+    let names = item.path.schema.filter(item => item != "properties");
+    names.push(item.name);
+    return names.join(" > ");
   };
   return (
     <React.Fragment>
       {item ? (
-        <Layer
-          closer={true}
-          align="center"
-          flush={true}
-          overlayClose={true}
-          // onClose={this.props.toggleActionsLayer}
-        >
+        <Layer closer={true} align="center" flush={true} overlayClose={true}>
           <Box
             justify="center"
             flex={true}
@@ -61,10 +65,10 @@ function DeleteBox({ index, onDelete }) {
             pad="small"
             size="medium"
           >
-            <Box pad="small" alignContent="center">
+            <Box pad="small" align="center" justify="center">
               <Paragraph>
-                This action will <b>permantly</b> delete{" "}
-                <code>{item.name}</code> from your schema
+                This action will <b>permantly</b> delete <br />
+                <code>{_renderMessage(item)}</code> <br />from your schema
                 <br />
               </Paragraph>
             </Box>

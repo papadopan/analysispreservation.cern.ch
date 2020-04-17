@@ -33,15 +33,18 @@ const ObjectFieldTemplate = function(props) {
 
     setCards([...cards, item]);
   });
+
   // update the uiSchema after the cards update
   // removes the ids and updates the ui:orded with the new one
   // everytyhing else remains the same
   useEffect(
     () => {
       let uiCards = cards.map(item => item.text);
+
       let { ...rest } = props.uiSchema;
       // when the ui:order is updated, the asterisk is appended in the end,
       // in order to accept new added components and order them in the end of the list
+
       props.onUiSchemaChange(
         props.formContext.uiSchema.length > 0 ? props.formContext.uiSchema : [],
         {
@@ -70,7 +73,13 @@ const ObjectFieldTemplate = function(props) {
     return (
       <Box>
         {cards.map((card, i) =>
-          RenderSortable(props.formContext.uiSchema, card, i, moveCard)
+          RenderSortable(
+            props.formContext.uiSchema,
+            card,
+            i,
+            moveCard,
+            props.formContext
+          )
         )}
       </Box>
     );

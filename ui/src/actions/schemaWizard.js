@@ -267,19 +267,41 @@ export function updateSchemas(schema, uiSchema) {
   };
 }
 
-export function deleteProperty(name) {
+export function deleteProperty(item) {
   return function(dispatch, getState) {
+    // fetch the state and store schema and uiSchema
     let state = getState();
-
     let schema = state.schemaWizard.getIn(["current", "schema"]).toJS();
     let uiSchema = state.schemaWizard.getIn(["current", "uiSchema"]).toJS();
 
-    delete schema.properties[name];
-    let sa = uiSchema["ui:order"].indexOf(name);
-    if (sa > -1) {
-      uiSchema["ui:order"].splice(sa, 1);
+    if (item.path.schema.length === 0) {
+      delete schema.properties[item.name];
+
+      const orderIndex = uiSchema["ui:order"].indexOf(item.name);
+      uiSchema["ui:order"].splice(orderIndex, 1);
+
+      delete uiSchema[item.name];
+    } else {
+      // find the item to delete
+      removeProperty(schema, uiSchema, item.path.schema, item.name);
     }
 
+    console.log("====================================");
+    console.log(uiSchema);
+    console.log("====================================");
     dispatch(updateSchemas(schema, uiSchema));
   };
 }
+
+const removeProperty = (schema, uiSchema, path, name) => {
+  // remove the item from the schema
+  path.push("properties");
+  let temp = schema;
+  let s = uiSchema;
+  path.map(item => {
+    temp = temp[item];
+    s = s[item];
+  });
+  delete temp[name];
+  delete s[name];
+};

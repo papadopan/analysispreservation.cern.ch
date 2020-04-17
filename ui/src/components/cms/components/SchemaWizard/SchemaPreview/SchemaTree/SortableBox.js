@@ -13,7 +13,15 @@ function getStyle(opacity) {
   };
 }
 
-function SortableBox({ parent, children, id, index, moveCard, name }) {
+function SortableBox({
+  parent,
+  children,
+  id,
+  index,
+  moveCard,
+  name,
+  formContext
+}) {
   const ref = useRef(null);
   const [, drop] = useDrop({
     accept: `RE-${parent}`,
@@ -65,7 +73,8 @@ function SortableBox({ parent, children, id, index, moveCard, name }) {
       index,
       id,
       parent,
-      name
+      name,
+      path: formContext
     },
     collect: monitor => ({
       isDragging: monitor.isDragging()
