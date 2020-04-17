@@ -13,8 +13,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     selectProperty: path => dispatch(selectProperty(path)),
-    deleteProperty: (name, schema, uiSchema) =>
-      dispatch(deleteProperty(name, schema, uiSchema))
+    deleteProperty: name => dispatch(deleteProperty(name))
   };
 }
 

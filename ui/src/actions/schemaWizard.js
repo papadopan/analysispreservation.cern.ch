@@ -267,10 +267,12 @@ export function updateSchemas(schema, uiSchema) {
   };
 }
 
-export function deleteProperty(name, schemas, uiSchemas) {
-  return function(dispatch) {
-    let schema = schemas.toJS();
-    let uiSchema = uiSchemas.toJS();
+export function deleteProperty(name) {
+  return function(dispatch, getState) {
+    let state = getState();
+
+    let schema = state.schemaWizard.getIn(["current", "schema"]).toJS();
+    let uiSchema = state.schemaWizard.getIn(["current", "uiSchema"]).toJS();
 
     delete schema.properties[name];
     let sa = uiSchema["ui:order"].indexOf(name);
