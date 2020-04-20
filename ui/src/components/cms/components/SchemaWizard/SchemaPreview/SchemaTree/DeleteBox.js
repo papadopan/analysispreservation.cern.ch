@@ -10,7 +10,6 @@ function getStyle(dropit) {
     alignItems: "center",
     display: "flex",
     justifyContent: "center",
-    border: "1px dotted black",
     color: "white",
     fontWeight: 700,
     letterSpacing: "3px",
@@ -19,17 +18,11 @@ function getStyle(dropit) {
   };
 }
 
-function DeleteBox({ index, onDelete }) {
-  const [showLayer, setShowLayer] = useState(false);
+function DeleteBox({ index, onDelete, values = [] }) {
   const [item, setItem] = useState(null);
+
   const [{ canDrop }, drop] = useDrop({
-    accept: [
-      "RE-",
-      "RE-basic_info",
-      "RE-cadi_info",
-      "RE-input_data",
-      "RE-additional_resources"
-    ],
+    accept: values,
     drop: (item, monitor) => {
       const didDrop = monitor.didDrop();
       setItem(item);

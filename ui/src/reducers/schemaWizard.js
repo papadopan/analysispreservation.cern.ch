@@ -1,4 +1,4 @@
-import { Map, fromJS } from "immutable";
+import { Map, fromJS, List } from "immutable";
 
 import {
   SCHEMA_INIT,
@@ -12,7 +12,8 @@ import {
   ADD_PROPERTY_INIT,
   SCHEMA_ERROR,
   SCHEMA_INIT_REQUEST,
-  UPDATE_SCHEMAS
+  UPDATE_SCHEMAS,
+  UPDATE_VALUES_TO_DELETE
 } from "../actions/schemaWizard";
 
 const initialState = Map({
@@ -27,6 +28,7 @@ const initialState = Map({
   propKeyEditor: null,
   editView: false,
   error: null,
+  valuesToDelete: List(),
   loader: false
 });
 

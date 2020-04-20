@@ -63,7 +63,11 @@ class SchemaPreview extends React.Component {
                 </Box>
               </Box>,
               <SchemaTree key="schemaTree" />,
-              <DeleteBox key="delete" onDelete={this.props.deleteProperty} />
+              <DeleteBox
+                key="delete"
+                onDelete={this.props.deleteProperty}
+                values={this.props.uiSchema.toJS()["ui:order"]}
+              />
             ]
           ) : (
             <Box>

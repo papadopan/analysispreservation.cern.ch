@@ -94,7 +94,8 @@ ObjectFieldTemplate.propTypes = {
   properties: PropTypes.array,
   formContext: PropTypes.object,
   onUiSchemaChange: PropTypes.func,
-  uiSchema: PropTypes.object
+  uiSchema: PropTypes.object,
+  updateAcceptedDeleteValues: PropTypes.func
 };
 
 function mapDispatchToProps(dispatch) {
