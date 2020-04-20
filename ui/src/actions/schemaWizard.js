@@ -292,13 +292,17 @@ export function deleteProperty(item) {
 
 const removeProperty = (schema, uiSchema, path, name) => {
   // remove the item from the schema
+  const uiPath = path.filter(item => item != "properties");
   path.push("properties");
   let temp = schema;
   let s = uiSchema;
   path.map(item => {
     temp = temp[item];
-    s = s[item];
   });
   delete temp[name];
+
+  uiPath.map(item => {
+    s = s[item];
+  });
   delete s[name];
 };
