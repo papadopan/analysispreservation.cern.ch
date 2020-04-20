@@ -286,9 +286,6 @@ export function deleteProperty(item) {
       removeProperty(schema, uiSchema, item.path.schema, item.name);
     }
 
-    console.log("====================================");
-    console.log(uiSchema);
-    console.log("====================================");
     dispatch(updateSchemas(schema, uiSchema));
   };
 }

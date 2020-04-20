@@ -13,6 +13,10 @@ const ObjectFieldTemplate = function(props) {
   const [cards, setCards] = useState([]);
   useEffect(
     () => {
+      const names = props.properties.map(prop => prop.name);
+      const cardssuffle = cards.filter(card => names.includes(card.text));
+      setCards(cardssuffle);
+
       cards.map((card, index) => {
         card.prop = props.properties[index];
       });
@@ -39,8 +43,7 @@ const ObjectFieldTemplate = function(props) {
   // everytyhing else remains the same
   useEffect(
     () => {
-      let uiCards = cards.map(item => item.text);
-
+      let uiCards = props.properties.map(item => item.name);
       let { ...rest } = props.uiSchema;
       // when the ui:order is updated, the asterisk is appended in the end,
       // in order to accept new added components and order them in the end of the list
