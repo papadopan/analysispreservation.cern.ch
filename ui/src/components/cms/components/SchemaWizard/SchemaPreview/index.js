@@ -66,7 +66,7 @@ class SchemaPreview extends React.Component {
               <DeleteBox
                 key="delete"
                 onDelete={this.props.deleteProperty}
-                values={this.props.uiSchema.toJS()["ui:order"]}
+                values={this.props.valuesToDelete}
               />
             ]
           ) : (
@@ -85,7 +85,8 @@ SchemaPreview.propTypes = {
   schema: PropTypes.object,
   uiSchema: PropTypes.object,
   selectProperty: PropTypes.func,
-  deleteProperty: PropTypes.func
+  deleteProperty: PropTypes.func,
+  valuesToDelete: PropTypes.array
 };
 
 export default SchemaPreview;

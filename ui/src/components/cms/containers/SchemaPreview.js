@@ -6,7 +6,8 @@ import { selectProperty, deleteProperty } from "../../../actions/schemaWizard";
 function mapStateToProps(state) {
   return {
     schema: state.schemaWizard.getIn(["current", "schema"]),
-    uiSchema: state.schemaWizard.getIn(["current", "uiSchema"])
+    uiSchema: state.schemaWizard.getIn(["current", "uiSchema"]),
+    valuesToDelete: state.schemaWizard.get("valuesToDelete")
   };
 }
 

@@ -24,7 +24,7 @@ function SortableBox({
 }) {
   const ref = useRef(null);
   const [, drop] = useDrop({
-    accept: parent.length === 0 ? "*" : parent[0],
+    accept: parent.length > 0 ? parent.join("/") : "*",
     hover: (item, monitor) => {
       if (!ref.current) {
         return;
@@ -69,7 +69,7 @@ function SortableBox({
 
   const [{ isDragging }, drag] = useDrag({
     item: {
-      type: parent.length === 0 ? "*" : parent[0],
+      type: parent.length > 0 ? parent.join("/") : "*",
       index,
       id,
       parent,

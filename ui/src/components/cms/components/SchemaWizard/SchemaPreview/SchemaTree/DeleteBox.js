@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd";
 import PropTypes from "prop-types";
-import { Layer, Box, Button, Paragraph } from "grommet";
+import { Layer, Box, Button, Paragraph, Label } from "grommet";
 
 function getStyle(dropit) {
   return {
@@ -13,7 +13,7 @@ function getStyle(dropit) {
     color: "white",
     fontWeight: 700,
     letterSpacing: "3px",
-    background: "red",
+    background: "#ff324d",
     opacity: dropit ? 1 : 0
   };
 }
@@ -21,10 +21,16 @@ function getStyle(dropit) {
 function DeleteBox({ index, onDelete, values = [] }) {
   const [item, setItem] = useState(null);
 
+  let arr = [];
+  values.map(item => arr.push(item));
+
+  // values.includes("*") ? null : values.push("*");
+
   const [{ canDrop }, drop] = useDrop({
     accept: values,
     drop: (item, monitor) => {
       const didDrop = monitor.didDrop();
+
       setItem(item);
       // if (!didDrop) {
       //   return { item, path, propKey };
@@ -77,7 +83,7 @@ function DeleteBox({ index, onDelete, values = [] }) {
         </Layer>
       ) : null}
       <div ref={drop} style={getStyle(canDrop)} index={index}>
-        delete
+        <Label margin="none">delete</Label>
       </div>
     </React.Fragment>
   );
@@ -91,7 +97,8 @@ DeleteBox.propTypes = {
   index: PropTypes.number,
   onDelete: PropTypes.func,
   schema: PropTypes.object,
-  uiSchema: PropTypes.object
+  uiSchema: PropTypes.object,
+  values: PropTypes.array
 };
 
 export default DeleteBox;

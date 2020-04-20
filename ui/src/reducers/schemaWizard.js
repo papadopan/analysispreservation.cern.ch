@@ -1,4 +1,4 @@
-import { Map, fromJS, List } from "immutable";
+import { Map, fromJS } from "immutable";
 
 import {
   SCHEMA_INIT,
@@ -28,7 +28,7 @@ const initialState = Map({
   propKeyEditor: null,
   editView: false,
   error: null,
-  valuesToDelete: List(),
+  valuesToDelete: [],
   loader: false
 });
 
@@ -95,6 +95,8 @@ export default function schemaReducer(state = initialState, action) {
       return state
         .setIn(["current", "schema"], fromJS(action.schema))
         .setIn(["current", "uiSchema"], fromJS(action.uiSchema));
+    case UPDATE_VALUES_TO_DELETE:
+      return state.set("valuesToDelete", action.values);
     default:
       return state;
   }

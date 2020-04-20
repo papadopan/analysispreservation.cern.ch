@@ -21,6 +21,7 @@ export const CURRENT_UPDATE_SCHEMA_PATH = "CURRENT_UPDATE_SCHEMA_PATH";
 export const CURRENT_UPDATE_UI_SCHEMA_PATH = "CURRENT_UPDATE_UI_SCHEMA_PATH";
 
 export const UPDATE_SCHEMAS = "UPDATE_SCHEMAS";
+export const UPDATE_VALUES_TO_DELETE = "UPDATE_VALUES_TO_DELETE";
 
 export function schemaError(error) {
   return {
@@ -264,6 +265,26 @@ export function updateSchemas(schema, uiSchema) {
     type: UPDATE_SCHEMAS,
     schema,
     uiSchema
+  };
+}
+
+export function updateValuesToDelete(values) {
+  return {
+    type: UPDATE_VALUES_TO_DELETE,
+    values
+  };
+}
+
+export function updateAvailableValuesToDelete(value) {
+  return function(dispatch, getState) {
+    let state = getState();
+    let values = state.schemaWizard.get("valuesToDelete");
+
+    value = value.length === 0 ? "*" : value.join("/");
+    if (!values.includes(value)) {
+      values.push(value);
+      dispatch(updateValuesToDelete(values));
+    }
   };
 }
 

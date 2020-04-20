@@ -6,20 +6,24 @@ import update from "immutability-helper";
 import { connect } from "react-redux";
 import {
   addByPath,
-  updateUiSchemaByPath
+  updateUiSchemaByPath,
+  updateAvailableValuesToDelete
 } from "../../../../../../actions/schemaWizard";
 
 const ObjectFieldTemplate = function(props) {
   const [cards, setCards] = useState([]);
   useEffect(
     () => {
-      const names = props.properties.map(prop => prop.name);
-      const cardssuffle = cards.filter(card => names.includes(card.text));
-      setCards(cardssuffle);
+      // const names = props.properties.map(prop => prop.name);
+      // const cardssuffle = cards.filter(card => names.includes(card.text));
+
+      // setCards(cardssuffle);
 
       cards.map((card, index) => {
         card.prop = props.properties[index];
       });
+
+      props.updateAvailableValuesToDelete(props.formContext.uiSchema);
     },
     [props.properties]
   );
@@ -43,11 +47,13 @@ const ObjectFieldTemplate = function(props) {
   // everytyhing else remains the same
   useEffect(
     () => {
-      let uiCards = props.properties.map(item => item.name);
-      let { ...rest } = props.uiSchema;
-      // when the ui:order is updated, the asterisk is appended in the end,
-      // in order to accept new added components and order them in the end of the list
+      // fetch the order from the cards in order to update the ui:order of each object
+      let uiCards = cards.map(item => item.text);
 
+      //fetch all the rest properties from the uiSchema
+      let { ...rest } = props.uiSchema;
+
+      // append the asterisk at the end in order to accept new objects and place them after the existent
       props.onUiSchemaChange(
         props.formContext.uiSchema.length > 0 ? props.formContext.uiSchema : [],
         {
@@ -72,6 +78,7 @@ const ObjectFieldTemplate = function(props) {
     },
     [cards]
   );
+
   if (props.idSchema.$id == "root") {
     return (
       <Box>
@@ -95,14 +102,16 @@ ObjectFieldTemplate.propTypes = {
   formContext: PropTypes.object,
   onUiSchemaChange: PropTypes.func,
   uiSchema: PropTypes.object,
-  updateAcceptedDeleteValues: PropTypes.func
+  updateAvailableValuesToDelete: PropTypes.func
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     addProperty: (path, data) => dispatch(addByPath(path, data)),
     onUiSchemaChange: (path, schema) =>
-      dispatch(updateUiSchemaByPath(path, schema))
+      dispatch(updateUiSchemaByPath(path, schema)),
+    updateAvailableValuesToDelete: value =>
+      dispatch(updateAvailableValuesToDelete(value))
   };
 }
 
