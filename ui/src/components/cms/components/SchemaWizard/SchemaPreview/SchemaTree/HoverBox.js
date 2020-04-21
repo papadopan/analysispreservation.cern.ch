@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 
 function getStyle(isOverCurrent, dropit) {
   return {
-    color: "white",
     textAlign: "center",
     fontSize: "1rem",
     height: "100%",

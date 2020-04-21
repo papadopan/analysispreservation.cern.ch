@@ -7,9 +7,7 @@ function getStyle(dropit) {
   return {
     padding: "20px",
     cursor: "move",
-    alignItems: "center",
-    display: "flex",
-    justifyContent: "center",
+    textAlign: "center",
     color: "white",
     fontWeight: 700,
     letterSpacing: "3px",
@@ -21,20 +19,10 @@ function getStyle(dropit) {
 function DeleteBox({ index, onDelete, values = [] }) {
   const [item, setItem] = useState(null);
 
-  let arr = [];
-  values.map(item => arr.push(item));
-
-  // values.includes("*") ? null : values.push("*");
-
   const [{ canDrop }, drop] = useDrop({
     accept: values,
-    drop: (item, monitor) => {
-      const didDrop = monitor.didDrop();
-
+    drop: item => {
       setItem(item);
-      // if (!didDrop) {
-      //   return { item, path, propKey };
-      // }
     },
     collect: monitor => ({
       isOver: monitor.isOver(),

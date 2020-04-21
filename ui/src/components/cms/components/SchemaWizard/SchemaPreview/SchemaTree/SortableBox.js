@@ -24,7 +24,7 @@ function SortableBox({
 }) {
   const ref = useRef(null);
   const [, drop] = useDrop({
-    accept: parent.length > 0 ? parent.join("/") : "*",
+    accept: `main/${parent.join("/")}`,
     hover: (item, monitor) => {
       if (!ref.current) {
         return;
@@ -69,7 +69,7 @@ function SortableBox({
 
   const [{ isDragging }, drag] = useDrag({
     item: {
-      type: parent.length > 0 ? parent.join("/") : "*",
+      type: `main/${parent.join("/")}`,
       index,
       id,
       parent,
@@ -97,7 +97,8 @@ SortableBox.propTypes = {
   id: PropTypes.number,
   index: PropTypes.number,
   moveCard: PropTypes.func,
-  name: PropTypes.string
+  name: PropTypes.string,
+  formContext: PropTypes.array
 };
 
 export default SortableBox;

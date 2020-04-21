@@ -12,7 +12,6 @@ import {
   ADD_PROPERTY_INIT,
   SCHEMA_ERROR,
   SCHEMA_INIT_REQUEST,
-  UPDATE_SCHEMAS,
   UPDATE_VALUES_TO_DELETE
 } from "../actions/schemaWizard";
 
@@ -91,10 +90,6 @@ export default function schemaReducer(state = initialState, action) {
         ["current", "uiSchema", ...action.path],
         fromJS(action.value)
       );
-    case UPDATE_SCHEMAS:
-      return state
-        .setIn(["current", "schema"], fromJS(action.schema))
-        .setIn(["current", "uiSchema"], fromJS(action.uiSchema));
     case UPDATE_VALUES_TO_DELETE:
       return state.set("valuesToDelete", action.values);
     default:

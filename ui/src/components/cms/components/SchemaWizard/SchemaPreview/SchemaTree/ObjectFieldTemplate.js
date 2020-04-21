@@ -14,11 +14,6 @@ const ObjectFieldTemplate = function(props) {
   const [cards, setCards] = useState([]);
   useEffect(
     () => {
-      // const names = props.properties.map(prop => prop.name);
-      // const cardssuffle = cards.filter(card => names.includes(card.text));
-
-      // setCards(cardssuffle);
-
       cards.map((card, index) => {
         card.prop = props.properties[index];
       });
@@ -33,6 +28,7 @@ const ObjectFieldTemplate = function(props) {
     if (index != cards.length) {
       return;
     }
+
     let item = {
       id: index + 1,
       text: prop.name,
@@ -49,6 +45,9 @@ const ObjectFieldTemplate = function(props) {
     () => {
       // fetch the order from the cards in order to update the ui:order of each object
       let uiCards = cards.map(item => item.text);
+      let uiProps = props.properties.map(item => item.name);
+
+      uiCards = uiCards.filter(item => uiProps.includes(item));
 
       //fetch all the rest properties from the uiSchema
       let { ...rest } = props.uiSchema;

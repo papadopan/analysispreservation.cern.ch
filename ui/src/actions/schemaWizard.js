@@ -20,7 +20,6 @@ export const CURRENT_UPDATE_PATH = "CURRENT_UPDATE_PATH";
 export const CURRENT_UPDATE_SCHEMA_PATH = "CURRENT_UPDATE_SCHEMA_PATH";
 export const CURRENT_UPDATE_UI_SCHEMA_PATH = "CURRENT_UPDATE_UI_SCHEMA_PATH";
 
-export const UPDATE_SCHEMAS = "UPDATE_SCHEMAS";
 export const UPDATE_VALUES_TO_DELETE = "UPDATE_VALUES_TO_DELETE";
 
 export function schemaError(error) {
@@ -260,14 +259,6 @@ export function addProperty(path, key) {
   };
 }
 
-export function updateSchemas(schema, uiSchema) {
-  return {
-    type: UPDATE_SCHEMAS,
-    schema,
-    uiSchema
-  };
-}
-
 export function updateValuesToDelete(values) {
   return {
     type: UPDATE_VALUES_TO_DELETE,
@@ -280,7 +271,7 @@ export function updateAvailableValuesToDelete(value) {
     let state = getState();
     let values = state.schemaWizard.get("valuesToDelete");
 
-    value = value.length === 0 ? "*" : value.join("/");
+    value = `main/${value.join("/")}`;
     if (!values.includes(value)) {
       values.push(value);
       dispatch(updateValuesToDelete(values));
@@ -295,35 +286,28 @@ export function deleteProperty(item) {
     let schema = state.schemaWizard.getIn(["current", "schema"]).toJS();
     let uiSchema = state.schemaWizard.getIn(["current", "uiSchema"]).toJS();
 
-    if (item.path.schema.length === 0) {
-      delete schema.properties[item.name];
+    //remove item from schema
+    let path = item.path.schema;
+    path.push("properties");
 
-      const orderIndex = uiSchema["ui:order"].indexOf(item.name);
-      uiSchema["ui:order"].splice(orderIndex, 1);
+    let tempSchema = schema;
+    let tempUiSchema = uiSchema;
+    path.map(item => {
+      tempSchema = tempSchema[item];
+    });
+    delete tempSchema[item.name];
 
-      delete uiSchema[item.name];
-    } else {
-      // find the item to delete
-      removeProperty(schema, uiSchema, item.path.schema, item.name);
-    }
+    //remove item from uiSchema and ui:order
+    const uiPath = path.filter(item => item != "properties");
+    uiPath.map(item => {
+      tempUiSchema = tempUiSchema[item];
+    });
 
-    dispatch(updateSchemas(schema, uiSchema));
+    const orderIndex = tempUiSchema["ui:order"].indexOf(item.name);
+    tempUiSchema["ui:order"].splice(orderIndex, 1);
+    delete tempUiSchema[item.name];
+
+    dispatch(updateSchemaByPath(item.path.schema, tempSchema));
+    dispatch(updateUiSchemaByPath(uiPath, tempUiSchema));
   };
 }
-
-const removeProperty = (schema, uiSchema, path, name) => {
-  // remove the item from the schema
-  const uiPath = path.filter(item => item != "properties");
-  path.push("properties");
-  let temp = schema;
-  let s = uiSchema;
-  path.map(item => {
-    temp = temp[item];
-  });
-  delete temp[name];
-
-  uiPath.map(item => {
-    s = s[item];
-  });
-  delete s[name];
-};
