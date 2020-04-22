@@ -58,11 +58,8 @@ class SelectFieldType extends React.Component {
 
   render() {
     return (
-      <Box flex={false} size="medium" colorIndex="grey-2" pad="medium">
-        <Paragraph>
-          Select the field type you want to use and drag and drop it to the
-          desired location in the form
-        </Paragraph>
+      <Box flex={false} size="medium" colorIndex="grey-2" pad="small">
+        <Paragraph>Drag and Drop any field you want to your form</Paragraph>
         <Box flex={true}>
           {Object.entries(fields).map(([key, type]) => (
             <Box key={key}>
@@ -73,7 +70,7 @@ class SelectFieldType extends React.Component {
                 wrap={true}
                 justify="start"
                 align="between"
-                margin={{ bottom: "large" }}
+                margin={{ bottom: "medium" }}
               >
                 {Object.entries(type.fields).map(([key, type], index) => (
                   <Box basis="1/2" key={key}>

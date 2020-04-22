@@ -7,7 +7,7 @@ function getStyle(isOverCurrent, dropit) {
     textAlign: "center",
     fontSize: "1rem",
     height: "100%",
-    background: dropit & isOverCurrent ? "#000001" : "rgb(206,206,206)"
+    background: dropit & isOverCurrent ? "#333333" : "rgb(206,206,206)"
   };
 }
 

@@ -12,7 +12,10 @@ function getStyle(dropit) {
     fontWeight: 700,
     letterSpacing: "3px",
     background: "#ff324d",
-    opacity: dropit ? 1 : 0
+    position: "absolute",
+    width: "100%",
+    transform: dropit ? "translateY(0)" : "translateY(-100%)",
+    transition: " transform 1s"
   };
 }
 
@@ -37,9 +40,19 @@ function DeleteBox({ index, onDelete, values = [] }) {
   };
 
   const _renderMessage = item => {
-    let names = item.path.schema.filter(item => item != "properties");
-    names.push(item.name);
-    return names.join(" > ");
+    // construct the names array
+    let names = item.path.schema
+      .filter(item => item !== "properties")
+      .filter(item => item != "items");
+
+    return (
+      <Paragraph>
+        This action will <b>permantly</b> delete <code>{item.name}</code>
+        <br />
+        from <code>{names.join(" > ")}</code>
+        <br />
+      </Paragraph>
+    );
   };
   return (
     <React.Fragment>
@@ -52,12 +65,9 @@ function DeleteBox({ index, onDelete, values = [] }) {
             pad="small"
             size="medium"
           >
+            {console.log("--------", item)}
             <Box pad="small" align="center" justify="center">
-              <Paragraph>
-                This action will <b>permantly</b> delete <br />
-                <code>{_renderMessage(item)}</code> <br />from your schema
-                <br />
-              </Paragraph>
+              {_renderMessage(item)}
             </Box>
             <Box direction="row" justify="between" align="center">
               <Box colorIndex="grey-4-a" margin="small">

@@ -12,8 +12,24 @@ import TreeIcon from "grommet/components/icons/base/Tree";
 class SchemaPreview extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { view: "tree" };
+    this.state = {
+      view: "tree"
+    };
   }
+
+  _setView = view => {
+    let multipleViews = {
+      tree: <SchemaTree key="schemaTree" />,
+      json: (
+        <Box>
+          <JSONViewer title="Schema" data={this.props.schema} />
+          <JSONViewer title="UI Schema" data={this.props.uiSchema} />
+        </Box>
+      )
+    };
+
+    return multipleViews[view];
+  };
 
   render() {
     return (
@@ -24,58 +40,49 @@ class SchemaPreview extends React.Component {
         justify="between"
         colorIndex="grey-3"
       >
-        <Header
-          size="small"
-          margin="none"
-          justify="end"
-          pad={{ horizontal: "small" }}
-        >
-          {this.state.view == "tree" ? (
-            <Anchor
-              icon={<CodeIcon />}
-              onClick={() => this.setState({ view: "json" })}
-            />
-          ) : (
-            <Anchor
-              icon={<TreeIcon />}
-              onClick={() => this.setState({ view: "tree" })}
-            />
-          )}
-        </Header>
-        <Box flex={true}>
-          {this.state.view == "tree" ? (
-            [
-              <Box
-                key="root"
-                onClick={() =>
-                  this.props.selectProperty({ schema: [], uiSchema: [] })
-                }
-              >
-                <Box
-                  pad="small"
-                  style={{
-                    width: "100%",
-                    borderBottom: "1px solid black",
-                    fontSize: "1.3m"
-                  }}
-                >
-                  Root
-                </Box>
-              </Box>,
-              <SchemaTree key="schemaTree" />,
-              <DeleteBox
-                key="delete"
-                onDelete={this.props.deleteProperty}
-                values={this.props.valuesToDelete}
+        <Box style={{ position: "relative" }}>
+          <Header
+            size="small"
+            margin="none"
+            justify="end"
+            pad={{ horizontal: "small" }}
+          >
+            {this.state.view == "tree" ? (
+              <Anchor
+                icon={<CodeIcon />}
+                onClick={() => this.setState({ view: "json" })}
               />
-            ]
-          ) : (
-            <Box>
-              <JSONViewer title="Schema" data={this.props.schema} />
-              <JSONViewer title="UI Schema" data={this.props.uiSchema} />
+            ) : (
+              <Anchor
+                icon={<TreeIcon />}
+                onClick={() => this.setState({ view: "tree" })}
+              />
+            )}
+          </Header>
+          <DeleteBox
+            key="delete"
+            onDelete={this.props.deleteProperty}
+            values={this.props.valuesToDelete}
+          />
+          <Box
+            key="root"
+            onClick={() =>
+              this.props.selectProperty({ schema: [], uiSchema: [] })
+            }
+          >
+            <Box
+              pad="small"
+              style={{
+                width: "100%",
+                borderBottom: "1px solid black",
+                fontSize: "1.3rem"
+              }}
+            >
+              Root
             </Box>
-          )}
+          </Box>
         </Box>
+        <Box flex={true}>{this._setView(this.state.view)}</Box>
       </Box>
     );
   }
