@@ -14,8 +14,8 @@ function getStyle(dropit) {
     background: "#ff324d",
     position: "absolute",
     width: "100%",
-    transform: dropit ? "translateY(0)" : "translateY(-100%)",
-    transition: " transform 1s"
+    transition: " transform 1s",
+    transform: dropit ? "translateY(0)" : "translateY(-100%)"
   };
 }
 
@@ -49,7 +49,8 @@ function DeleteBox({ index, onDelete, values = [] }) {
       <Paragraph>
         This action will <b>permantly</b> delete <code>{item.name}</code>
         <br />
-        from <code>{names.join(" > ")}</code>
+        from{" "}
+        {names.length === 0 ? "your schema" : <code>{names.join(" > ")}</code>}
         <br />
       </Paragraph>
     );
@@ -65,7 +66,6 @@ function DeleteBox({ index, onDelete, values = [] }) {
             pad="small"
             size="medium"
           >
-            {console.log("--------", item)}
             <Box pad="small" align="center" justify="center">
               {_renderMessage(item)}
             </Box>

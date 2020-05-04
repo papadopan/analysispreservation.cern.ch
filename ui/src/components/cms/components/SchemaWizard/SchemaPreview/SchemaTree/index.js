@@ -19,7 +19,13 @@ const widgets = {
 class SchemaTree extends React.Component {
   render() {
     return (
-      <Box style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <Box
+        style={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column"
+        }}
+      >
         <Form
           schema={transformSchema(this.props.schema.toJS())}
           uiSchema={this.props.uiSchema.toJS()}

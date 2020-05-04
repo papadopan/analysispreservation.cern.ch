@@ -31,6 +31,25 @@ class SchemaPreview extends React.Component {
     return multipleViews[view];
   };
 
+  _setAnchor = view => {
+    let multipleAnchors = {
+      tree: (
+        <Anchor
+          icon={<CodeIcon />}
+          onClick={() => this.setState({ view: "json" })}
+        />
+      ),
+      json: (
+        <Anchor
+          icon={<TreeIcon />}
+          onClick={() => this.setState({ view: "tree" })}
+        />
+      )
+    };
+
+    return multipleAnchors[view];
+  };
+
   render() {
     return (
       <Box
@@ -47,17 +66,7 @@ class SchemaPreview extends React.Component {
             justify="end"
             pad={{ horizontal: "small" }}
           >
-            {this.state.view == "tree" ? (
-              <Anchor
-                icon={<CodeIcon />}
-                onClick={() => this.setState({ view: "json" })}
-              />
-            ) : (
-              <Anchor
-                icon={<TreeIcon />}
-                onClick={() => this.setState({ view: "tree" })}
-              />
-            )}
+            {this._setAnchor(this.state.view)}
           </Header>
           <DeleteBox
             key="delete"
