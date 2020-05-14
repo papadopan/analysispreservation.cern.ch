@@ -109,6 +109,7 @@ class SearchPage extends React.Component {
           <Box flex={true} justify="center" direction="row">
             <Box justify="center" align="center">
               <Spinning size="large" />
+              <Label>Fecthing Results...</Label>
             </Box>
           </Box>
         ) : (
@@ -146,7 +147,7 @@ SearchPage.propTypes = {
 function mapStateToProps(state) {
   return {
     results: state.search.getIn(["results"]),
-    loading: state.search.getIn(["loading"]),
+    loading: state.search.get("loading"),
     selectedAggs: state.search.getIn(["selectedAggs"])
   };
 }

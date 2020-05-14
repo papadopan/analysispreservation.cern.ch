@@ -31,6 +31,7 @@ export default function searchReducer(state = initialState, action) {
       return state.set("query", action.query);
     case ADD_AGGS:
       return state.set("selectedAggs", action.selectedAggs);
+
     case REMOVE_AGGS:
       return state;
     case CLEAR_SEARCH:
