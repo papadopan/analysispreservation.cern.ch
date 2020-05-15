@@ -59,6 +59,7 @@ class SearchPage extends React.Component {
     let total = null;
     let results = null;
     let aggs = null;
+    let filterTags = null;
 
     let _results = {};
     let _aggs;
@@ -75,6 +76,35 @@ class SearchPage extends React.Component {
           selectedAggs={this.props.selectedAggs}
           onChange={this._toggleAggs}
         />
+      );
+    }
+
+    if (this.props.location.search !== "?q=") {
+      filterTags = (
+        <Box
+          wrap
+          direction="row"
+          colorIndex="light-2"
+          pad={{ vertical: "medium", horizontal: "small" }}
+        >
+          {this.props.location.search
+            .replace("?", "")
+            .replace("q", "query")
+            .replace(/=/g, ":")
+            .split("&")
+            .map((item, index) => (
+              <Box
+                key={index}
+                separator="all"
+                colorIndex="light-1"
+                pad="small"
+                margin={{ horizontal: "small", bottom: "small" }}
+                size={{ height: { max: "small" } }}
+              >
+                {item}
+              </Box>
+            ))}
+        </Box>
       );
     }
 
@@ -120,6 +150,7 @@ class SearchPage extends React.Component {
     return (
       <Box flex={true}>
         {utils}
+        {filterTags}
         <Box flex={true} direction="row" colorIndex="light-2">
           {aggs}
           <Box
