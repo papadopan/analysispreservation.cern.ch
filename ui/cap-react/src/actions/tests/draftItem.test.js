@@ -8,7 +8,6 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 const draft_id = "ca91ce9758c748a4b115ffdd706f2cda";
-const published_id = "ca91ce9758c748a4b115ffdd706f2cda";
 const new_title = "This is the new Title";
 
 const draft = {
@@ -226,7 +225,7 @@ describe("Action Creators => draftItem", () => {
     document.body.append = "";
     const expectedActions = [
       { type: actions.PUBLISH_DRAFT_REQUEST },
-      { type: actions.PUBLISH_DRAFT_SUCCESS, published_id, draft }
+      { type: actions.PUBLISH_DRAFT_SUCCESS, draft }
     ];
 
     axios.post = jest.fn(() => {
@@ -250,10 +249,9 @@ describe("Action Creators => draftItem", () => {
   });
 
   it("Async Publish Draft Error", async () => {
-    const error = { error: "this is the error from the publish draft" };
     const expectedActions = [
       { type: actions.PUBLISH_DRAFT_REQUEST },
-      { type: actions.PUBLISH_DRAFT_ERROR, error }
+      { type: actions.PUBLISH_DRAFT_ERROR }
     ];
 
     axios.post = jest.fn(() => {
