@@ -61,7 +61,7 @@ class DepositForm extends Component {
   render() {
     return (
       <Box size={{ width: { min: "large" } }} flex={true} wrap={false}>
-        <Box pad="none" flex={true}>
+        <Box pad="none" flex={true} style={{ overflow: "hidden" }}>
           <Form
             ref={this.props.formRef}
             style={{ marginBottom: "1em" }}

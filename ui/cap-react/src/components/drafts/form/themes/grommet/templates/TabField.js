@@ -104,14 +104,13 @@ class TabField extends React.Component {
         flex={true}
         style={{
           display: "grid",
-          justifyContent: this.options && this.options.full ? " " : "center"
+          justifyContent: this.options && this.options.full ? " " : "center",
+          overflow: "visible"
         }}
       >
-        <Box size={this.options && this.options.full ? "full" : "xxlarge"}>
+        <Box>
           <Box className="md-column">
             <Box
-              fixed="true"
-              flex={false}
               colorIndex={this.view.sidebarColor || "grey-4"}
               pad={{ between: this.view.vertical ? "none" : "small" }}
               direction={this.view.vertical ? "column" : "row"}
@@ -159,14 +158,14 @@ class TabField extends React.Component {
               </Box>
             </Box>
 
-            <Box flex={true}>
+            <Box flex>
               <Box
                 style={{
                   display: "grid",
-                  overflow: "auto",
+                  overflow: "scroll",
                   padding: "10px",
                   width: "100%",
-                  height: "100%",
+                  height: "100vh",
                   justifyContent: "center"
                 }}
               >
@@ -174,7 +173,7 @@ class TabField extends React.Component {
                   className="rjsf"
                   style={{
                     padding: "10px",
-                    overflow: "auto"
+                    paddingBottom: "170px"
                   }}
                   size={{ width: this.view.innerTab || "xlarge" }}
                 >
