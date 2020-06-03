@@ -107,79 +107,75 @@ class TabField extends React.Component {
           justifyContent: this.options && this.options.full ? " " : "center"
         }}
       >
-        <Box size={this.options && this.options.full ? "full" : "xxlarge"}>
-          <Box className="md-column">
+        <Box className="md-column" style={{ oevrflow: "hidden" }}>
+          <Box
+            colorIndex={this.view.sidebarColor || "grey-4"}
+            pad={{ between: this.view.vertical ? "none" : "small" }}
+            direction={this.view.vertical ? "column" : "row"}
+            wrap={true}
+          >
+            {this.state.analysis_mode.length > 0 ? (
+              <AnalysisReuseMode
+                innerProps={this.state.analysis_mode[0].content.props}
+              />
+            ) : null}
+
             <Box
-              fixed="true"
-              flex={false}
-              colorIndex={this.view.sidebarColor || "grey-4"}
-              pad={{ between: this.view.vertical ? "none" : "small" }}
-              direction={this.view.vertical ? "column" : "row"}
-              wrap={true}
+              flex={true}
+              pad={{ vertical: "none" }}
+              size={{ width: { max: "medium" } }}
             >
-              {this.state.analysis_mode.length > 0 ? (
-                <AnalysisReuseMode
-                  innerProps={this.state.analysis_mode[0].content.props}
-                />
-              ) : null}
-
-              <Box
-                flex={true}
-                pad={{ vertical: "none" }}
-                size={{ width: { max: "medium" } }}
-              >
-                {tabs.map((tab, index) => (
-                  <ErrorFieldIndicator
-                    errors={this.props.formContext.ref}
-                    id={
-                      this.state.optionTabs
-                        ? tab.idsList
-                        : tab.content.props.idSchema.$id
-                    }
-                    properties={this.props.properties}
-                    tab={true}
-                    key={index}
-                  >
-                    <Box
-                      colorIndex={
-                        tab.name == this.state.active ? "light-1" : null
-                      }
-                      key={index}
-                      pad="small"
-                      onClick={this._onTabClick.bind(this, tab)}
-                    >
-                      <Heading tag="h5" margin="none" size="medium" strong>
-                        {tab.title ||
-                          tab.content.props.schema.title ||
-                          "Untitled"}
-                      </Heading>
-                    </Box>
-                  </ErrorFieldIndicator>
-                ))}
-              </Box>
-            </Box>
-
-            <Box flex={true}>
-              <Box
-                style={{
-                  display: "grid",
-                  overflow: "auto",
-                  padding: "10px",
-                  width: "100%",
-                  height: "100%",
-                  justifyContent: "center"
-                }}
-              >
-                <Box
-                  className="rjsf"
-                  style={{
-                    padding: "10px",
-                    overflow: "auto"
-                  }}
-                  size={{ width: this.view.innerTab || "xlarge" }}
+              {tabs.map((tab, index) => (
+                <ErrorFieldIndicator
+                  errors={this.props.formContext.ref}
+                  id={
+                    this.state.optionTabs
+                      ? tab.idsList
+                      : tab.content.props.idSchema.$id
+                  }
+                  properties={this.props.properties}
+                  tab={true}
+                  key={index}
                 >
-                  {active_tabs_content.map(item => item.content)}
-                </Box>
+                  <Box
+                    colorIndex={
+                      tab.name == this.state.active ? "light-1" : null
+                    }
+                    key={index}
+                    pad="small"
+                    onClick={this._onTabClick.bind(this, tab)}
+                  >
+                    <Heading tag="h5" margin="none" size="medium" strong>
+                      {tab.title ||
+                        tab.content.props.schema.title ||
+                        "Untitled"}
+                    </Heading>
+                  </Box>
+                </ErrorFieldIndicator>
+              ))}
+            </Box>
+          </Box>
+
+          <Box flex={true}>
+            <Box
+              style={{
+                display: "grid",
+                overflow: "auto",
+                padding: "10px",
+                width: "100%",
+                height: "100%",
+                justifyContent: "center"
+              }}
+            >
+              <Box
+                className="rjsf"
+                style={{
+                  padding: "10px",
+                  overflow: "auto"
+                }}
+                size={{ width: this.view.innerTab || "xlarge" }}
+              >
+                {active_tabs_content.map(item => item.content)}
               </Box>
             </Box>
           </Box>
