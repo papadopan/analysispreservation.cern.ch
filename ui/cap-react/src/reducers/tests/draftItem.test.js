@@ -29,6 +29,8 @@ const draft = {
   updated: null
 };
 
+const errorMessage = "This is an error message for the error states";
+
 // different states
 const initialState = Map({
   errors: [],
@@ -65,8 +67,8 @@ const initialState = Map({
   updated: null,
   formErrors: Set([])
 });
-const createDraftError = Map({
-  errors: ["this is an error message for create draft error"],
+const DraftErrorState = Map({
+  errors: [errorMessage],
   schemaErrors: [],
   actionsLayer: false,
   actionsLayerType: null,
@@ -349,10 +351,10 @@ describe("DraftItem Reducers Test", () => {
   it("Create Draft Error", () => {
     const action = {
       type: actions.CREATE_DRAFT_ERROR,
-      error: "this is an error message for create draft error"
+      error: errorMessage
     };
 
-    expect(draftReducer(initialState, action)).toEqual(createDraftError);
+    expect(draftReducer(initialState, action)).toEqual(DraftErrorState);
   });
 
   it("Publish Draft Request", () => {
@@ -384,5 +386,32 @@ describe("DraftItem Reducers Test", () => {
     };
 
     expect(draftReducer(initialState, action)).toEqual(initialState);
+  });
+
+  it("Delete Draft Request", () => {
+    const action = {
+      type: actions.DELETE_DRAFT_REQUEST
+    };
+    expect(draftReducer(initialState, action)).toEqual(loadingState);
+  });
+
+  it("Delete Draft Success", () => {
+    const action = {
+      type: actions.DELETE_DRAFT_SUCCESS
+    };
+
+    // practically whaterver the previous state is, the reducer will always return the initial state when delete occurs
+    expect(draftReducer(createDraftSuccess, action)).toEqual(initialState);
+    expect(draftReducer(generalTitleStateAfter, action)).toEqual(initialState);
+    expect(draftReducer(DraftErrorState, action)).toEqual(initialState);
+  });
+
+  it("Delete Draft Error", () => {
+    const action = {
+      type: actions.DELETE_DRAFT_ERROR,
+      error: errorMessage
+    };
+
+    expect(draftReducer(initialState, action)).toEqual(DraftErrorState);
   });
 });
