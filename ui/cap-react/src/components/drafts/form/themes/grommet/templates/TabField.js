@@ -125,100 +125,98 @@ class TabField extends React.Component {
           maxWidth: "100%"
         }}
       >
-        <Box>
-          <Box className="md-column">
-            <Box
-              fixed="true"
-              colorIndex={this.view.sidebarColor || "grey-4"}
-              pad={{ between: this.view.vertical ? "none" : "small" }}
-              className="small-row-large-column"
-              align="center"
-              id="list"
-            >
-              {this.state.analysis_mode.length > 0 ? (
-                <AnalysisReuseMode
-                  innerProps={this.state.analysis_mode[0].content.props}
-                />
-              ) : null}
+        <Box className="md-column">
+          <Box
+            fixed="true"
+            colorIndex={this.view.sidebarColor || "grey-4"}
+            pad={{ between: this.view.vertical ? "none" : "small" }}
+            className="small-row-large-column"
+            align="center"
+            id="list"
+          >
+            {this.state.analysis_mode.length > 0 ? (
+              <AnalysisReuseMode
+                innerProps={this.state.analysis_mode[0].content.props}
+              />
+            ) : null}
 
-              <Box
-                className="tabs-select-menu"
-                colorIndex={this.view.sidebarColor || "grey-4"}
-              >
-                <Box pad="small">
-                  <Select
-                    id="tabs-select-component"
-                    className="select-menu"
-                    options={tabs.map(tab => {
-                      return {
-                        value: tab.name,
-                        label:
-                          tab.title ||
-                          tab.content.props.schema.title ||
-                          "Untitled"
-                      };
-                    })}
-                    onChange={this.updateValueOnClick}
-                    value={{
-                      label: this.state.activeLabel,
-                      value: this.state.active
-                    }}
-                  />
-                </Box>
-              </Box>
-              <Box className="tabs-list">
-                <Box pad={{ vertical: "none" }} className="tabs-list-items">
-                  {tabs.map((tab, index) => (
-                    <ErrorFieldIndicator
-                      errors={this.props.formContext.ref}
-                      id={
-                        this.state.optionTabs
-                          ? tab.idsList
-                          : tab.content.props.idSchema.$id
-                      }
-                      properties={this.props.properties}
-                      tab={true}
-                      key={index}
-                    >
-                      <Box
-                        colorIndex={
-                          tab.name == this.state.active ? "light-1" : null
-                        }
-                        key={index}
-                        pad="small"
-                        onClick={this._onTabClick.bind(this, tab)}
-                        id="item"
-                      >
-                        <Heading tag="h5" margin="none" size="medium" strong>
-                          {tab.title ||
-                            tab.content.props.schema.title ||
-                            "Untitled"}
-                        </Heading>
-                      </Box>
-                    </ErrorFieldIndicator>
-                  ))}
-                </Box>
+            <Box
+              className="tabs-select-menu"
+              colorIndex={this.view.sidebarColor || "grey-4"}
+            >
+              <Box pad="small">
+                <Select
+                  id="tabs-select-component"
+                  className="select-menu"
+                  options={tabs.map(tab => {
+                    return {
+                      value: tab.name,
+                      label:
+                        tab.title ||
+                        tab.content.props.schema.title ||
+                        "Untitled"
+                    };
+                  })}
+                  onChange={this.updateValueOnClick}
+                  value={{
+                    label: this.state.activeLabel,
+                    value: this.state.active
+                  }}
+                />
               </Box>
             </Box>
+            <Box className="tabs-list">
+              <Box pad={{ vertical: "none" }} className="tabs-list-items">
+                {tabs.map((tab, index) => (
+                  <ErrorFieldIndicator
+                    errors={this.props.formContext.ref}
+                    id={
+                      this.state.optionTabs
+                        ? tab.idsList
+                        : tab.content.props.idSchema.$id
+                    }
+                    properties={this.props.properties}
+                    tab={true}
+                    key={index}
+                  >
+                    <Box
+                      colorIndex={
+                        tab.name == this.state.active ? "light-1" : null
+                      }
+                      key={index}
+                      pad="small"
+                      onClick={this._onTabClick.bind(this, tab)}
+                      id="item"
+                    >
+                      <Heading tag="h5" margin="none" size="medium" strong>
+                        {tab.title ||
+                          tab.content.props.schema.title ||
+                          "Untitled"}
+                      </Heading>
+                    </Box>
+                  </ErrorFieldIndicator>
+                ))}
+              </Box>
+            </Box>
+          </Box>
 
-            <Box flex={true}>
+          <Box flex={true}>
+            <Box
+              style={{
+                display: "grid",
+                padding: "10px",
+                width: "100%",
+                height: "1vh"
+              }}
+              className="justify-large"
+            >
               <Box
+                className="rjsf xlarge_box justify-large"
                 style={{
-                  display: "grid",
-                  padding: "10px",
-                  width: "100%",
-                  height: "100%"
+                  padding: "10px"
                 }}
-                className="justify-large"
               >
-                <Box
-                  className="rjsf xlarge_box"
-                  style={{
-                    padding: "10px"
-                  }}
-                >
-                  {active_tabs_content.map(item => item.content)}
-                </Box>
+                {active_tabs_content.map(item => item.content)}
               </Box>
             </Box>
           </Box>
