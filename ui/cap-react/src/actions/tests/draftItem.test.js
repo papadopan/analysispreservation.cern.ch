@@ -271,4 +271,62 @@ describe("Action Creators => draftItem", () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
+
+  it("Async Delete Draft Success", async () => {
+    // the last item in the expectedActions
+    // refers to the action dispatch(push("/"))
+
+    const expectedActions = [
+      { type: actions.DELETE_DRAFT_REQUEST },
+      { type: actions.DELETE_DRAFT_SUCCESS },
+      {
+        payload: { args: ["/"], method: "push" },
+        type: "@@router/CALL_HISTORY_METHOD"
+      }
+    ];
+
+    axios.delete = jest.fn(() => {
+      return Promise.resolve({});
+    });
+
+    const store = mockStore({
+      draftItem: Map({
+        links: {
+          self:
+            "http://localhost:3000/api/deposits/6d19a4dedc14490f94b1380f27ac0768"
+        }
+      })
+    });
+
+    await store.dispatch(actions.deleteDraft()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it("Async Delete Draft Error", async () => {
+    const error = "error from delete function";
+    const expectedActions = [
+      { type: actions.DELETE_DRAFT_REQUEST },
+      { type: actions.DELETE_DRAFT_ERROR, error }
+    ];
+
+    axios.delete = jest.fn(() => {
+      return Promise.reject({
+        response: error
+      });
+    });
+
+    const store = mockStore({
+      draftItem: Map({
+        links: {
+          publish:
+            "http://localhost:3000/deposits/ff517e86453646adab77144c18933717/actions/publish"
+        }
+      })
+    });
+
+    await store.dispatch(actions.deleteDraft()).catch(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
 });

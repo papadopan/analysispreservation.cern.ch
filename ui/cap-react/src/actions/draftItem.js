@@ -513,7 +513,7 @@ export function deleteDraft() {
     let links = state.draftItem.get("links");
     // let uri = `/api/deposits/${draft_id}`;
 
-    axios
+    return axios
       .delete(links.self)
       .then(() => {
         dispatch(deleteDraftSuccess());
