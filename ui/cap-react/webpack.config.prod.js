@@ -58,7 +58,8 @@ export default {
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true
+        minifyURLs: true,
+        chucksSortMode: "auto"
       },
       inject: true,
       // Note that you can add custom options here if you need to handle other custom logic in index.html

@@ -47,7 +47,8 @@ export default {
         removeComments: true,
         collapseWhitespace: true
       },
-      inject: true
+      inject: true,
+      chucksSortMode: "auto"
     })
   ],
   module: {
