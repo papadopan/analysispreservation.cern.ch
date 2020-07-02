@@ -11,9 +11,11 @@ import { connect } from "react-redux";
 // Actions
 import { toggleActionsLayer } from "../../../actions/draftItem";
 
-import { AnnounceIcon } from "grommet/components/icons";
+import { AiOutlineNotification } from "react-icons/ai";
 
 import ReactTooltip from "react-tooltip";
+
+import Button from "../../partials/Button";
 
 class DepositSettings extends React.Component {
   render() {
@@ -48,47 +50,47 @@ class DepositSettings extends React.Component {
           </Box>
           <Box flex align="center" justify="center">
             <React.Fragment>
-              <Box margin="small">
-                <Paragraph margin="none">
-                  {isPublishedOnce ? (
-                    <Anchor
-                      data-tip="Latest published version"
-                      label={
-                        <Label size="medium" uppercase>
-                          {this.props.recid}
-                        </Label>
-                      }
-                      primary
-                      path={`/published/${this.props.recid}`}
-                    />
-                  ) : (
-                    <Anchor
-                      label={
-                        <Label size="medium" uppercase>
-                          not published yet
-                        </Label>
-                      }
-                      disabled
-                    />
-                  )}
-                </Paragraph>
-              </Box>
               <Box align="center" pad={{ horizontal: "small" }} margin="small">
-                <Anchor
-                  data-tip={
-                    this.props.canUpdate
-                      ? null
-                      : "your account has no permissions to publish"
-                  }
-                  disabled={!this.props.canUpdate}
-                  icon={<AnnounceIcon size="xsmall" />}
-                  onClick={isDraft ? this.props.publishDraft : null}
-                  label={
-                    <Label size="medium" uppercase>
-                      Publish {isPublishedOnce ? "New Version" : null}
-                    </Label>
-                  }
-                />
+                <Box>
+                  <Button
+                    data-tip={
+                      this.props.canUpdate
+                        ? null
+                        : "your account has no permissions to publish"
+                    }
+                    text={isPublishedOnce ? "Publish New Version" : "Publish"}
+                    icon={<AiOutlineNotification size={18} />}
+                    disabled={!this.props.canUpdate}
+                    onClick={isDraft ? this.props.publishDraft : null}
+                    primary
+                  />
+                </Box>
+                <Box margin="small">
+                  <Paragraph margin="none">
+                    {isPublishedOnce ? (
+                      <Box margin={{ top: "small" }}>
+                        Latest Published Version
+                        <Anchor
+                          label={
+                            <Label size="small" uppercase>
+                              {this.props.recid}
+                            </Label>
+                          }
+                          path={`/published/${this.props.recid}`}
+                        />
+                      </Box>
+                    ) : (
+                      <Anchor
+                        label={
+                          <Label size="medium" uppercase>
+                            not published yet
+                          </Label>
+                        }
+                        disabled
+                      />
+                    )}
+                  </Paragraph>
+                </Box>
                 <ReactTooltip />
               </Box>
             </React.Fragment>
