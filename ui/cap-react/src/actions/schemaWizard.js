@@ -20,6 +20,8 @@ export const CURRENT_UPDATE_PATH = "CURRENT_UPDATE_PATH";
 export const CURRENT_UPDATE_SCHEMA_PATH = "CURRENT_UPDATE_SCHEMA_PATH";
 export const CURRENT_UPDATE_UI_SCHEMA_PATH = "CURRENT_UPDATE_UI_SCHEMA_PATH";
 
+export const PROPERTY_KEY_EDITOR_NULL = "PROPERTY_KEY_EDITOR_NULL";
+
 export function schemaError(error) {
   return {
     type: SCHEMA_ERROR,
@@ -254,5 +256,29 @@ export function addProperty(path, key) {
     type: ADD_PROPERTY,
     path,
     key
+  };
+}
+
+// delete item from schema and uiSchema
+export function deleteByPath(item) {
+  return function(dispatch, getState) {
+    let schema = getState()
+      .schemaWizard.getIn(["current", "schema"])
+      .toJS();
+
+    let uiSchema = getState()
+      .schemaWizard.getIn(["current", "uiSchema"])
+      .toJS();
+
+    const path = item.path;
+    const uiPath = item.uiPath;
+
+    // delete schema.properties[item.path[1]];
+
+    dispatch(updateSchemaByPath("", schema));
+    // enable create mode
+    dispatch(enableCreateMode());
+
+    // dispatch(updateUiSchemaByPath("", uiSchema));
   };
 }

@@ -7,24 +7,25 @@ function getStyle(isOverCurrent) {
     color: "white",
     textAlign: "center",
     fontSize: "1rem",
-    height: "100%",
-    border: isOverCurrent ? "1px dotted black " : null
+    height: "100px",
+    background: "red",
+    border: isOverCurrent ? "1px dashed black " : null
   };
 }
 
-function HoverBox({ path, propKey, addProperty, children, index }) {
+function DeleteBox({ children, index, del }) {
   // const [hasDropped, setHasDropped] = useState(false);
   // const [results, setResults] = useState({});
   // const [hasDroppedOnChild, setHasDroppedOnChild] = useState(false);
   // const ref = useRef(null);
   const [{ isOverCurrent }, drop] = useDrop({
-    accept: "FIELD_TYPE",
+    accept: ["RE-basic_info", "RE-"],
     drop: (item, monitor) => {
-      const didDrop = monitor.didDrop();
-      if (!didDrop) {
-        addProperty(path, item.data.default);
-        return { item, path, propKey };
-      }
+      console.log("====================================");
+      console.log(item);
+      console.log("====================================");
+
+      del(item);
       // setHasDropped(true);
       // setHasDroppedOnChild(didDrop);
     },
@@ -40,7 +41,7 @@ function HoverBox({ path, propKey, addProperty, children, index }) {
   );
 }
 
-HoverBox.propTypes = {
+DeleteBox.propTypes = {
   children: PropTypes.element,
   path: PropTypes.array,
   addProperty: PropTypes.func,
@@ -48,4 +49,4 @@ HoverBox.propTypes = {
   index: PropTypes.number
 };
 
-export default HoverBox;
+export default DeleteBox;

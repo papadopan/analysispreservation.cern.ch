@@ -9,6 +9,7 @@ import {
   PROPERTY_SELECT,
   CREATE_MODE_ENABLE,
   ADD_PROPERTY,
+  PROPERTY_KEY_EDITOR_NULL,
   ADD_PROPERTY_INIT,
   SCHEMA_ERROR,
   SCHEMA_INIT_REQUEST
@@ -88,6 +89,8 @@ export default function schemaReducer(state = initialState, action) {
         ["current", "uiSchema", ...action.path],
         fromJS(action.value)
       );
+    case PROPERTY_KEY_EDITOR_NULL:
+      return state.set("propKeyEditor", null);
     default:
       return state;
   }

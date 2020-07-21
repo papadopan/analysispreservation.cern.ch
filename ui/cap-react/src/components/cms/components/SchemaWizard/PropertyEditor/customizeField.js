@@ -4,6 +4,7 @@ import Box from "grommet/components/Box";
 
 import Form from "../../../../drafts/form/GrommetForm";
 import { PropTypes } from "prop-types";
+import Button from "../../../../partials/Button";
 
 import Image1 from "./svg/AccordionField";
 import Image2 from "./svg/TabObjectField";
@@ -12,6 +13,7 @@ import Image4 from "./svg/TwoColLayoutField";
 import Image5 from "./svg/TabTwoColLayoutField";
 import Image6 from "./svg/SidebatLayout";
 import Image7 from "./svg/SidebarTwoColLayout";
+import Layer from "grommet/components/Layer";
 
 import { schemaSchema } from "../../utils/schemas";
 import { Label } from "grommet";
@@ -47,7 +49,8 @@ class CustomizeField extends React.Component {
 
     this.state = {
       schema: props.schema ? props.schema.toJS() : {},
-      uiSchema: props.uiSchema ? props.uiSchema.toJS() : {}
+      uiSchema: props.uiSchema ? props.uiSchema.toJS() : {},
+      showDeleteLayer: false
     };
   }
 
@@ -143,7 +146,49 @@ class CustomizeField extends React.Component {
   render() {
     return (
       <Box flex={false}>
-        <Box flex={true} margin={{ bottom: "medium" }}>
+        {this.state.showDeleteLayer && (
+          <Layer
+            closer={true}
+            align="center"
+            flush={true}
+            overlayClose={true}
+            onClose={() => this.setState({ showDeleteLayer: false })}
+          >
+            <Box
+              size={{ height: "small", width: { min: "medium" } }}
+              pad="small"
+            >
+              <Box
+                flex={true}
+                direction="row"
+                margin={{ top: "large" }}
+                align="center"
+                justify="center"
+              >
+                Are you sure you want to delete
+              </Box>
+              <Box align="center" justify="center" direction="row">
+                {this.props.path
+                  .toJS()
+                  .path.filter(item => item != "properties" && item != "items")
+                  .map((item, index) => <code key={index + item}>{item}</code>)}
+              </Box>
+
+              <Box margin={{ top: "medium" }} direction="row" justify="between">
+                <Button text="Cancel" secondary />
+                <Button
+                  text="Delete"
+                  critical
+                  onClick={() => {
+                    this.props.deleteByPath(this.props.path.toJS());
+                    this.setState({ showDeleteLayer: false });
+                  }}
+                />
+              </Box>
+            </Box>
+          </Layer>
+        )}
+        <Box flex={true} margin={{ bottom: "small" }}>
           <Box
             colorIndex="accent-2"
             flex={false}
@@ -374,6 +419,24 @@ class CustomizeField extends React.Component {
               <Image7 />
             </Box>
           </Box>
+        </Box>
+        <Box>
+          <Box
+            colorIndex="accent-2"
+            flex={false}
+            pad="small"
+            margin={{ top: "small" }}
+          >
+            <Label size="medium" margin="none">
+              Actions
+            </Label>
+          </Box>
+          <Button
+            text="Delete"
+            margin={{ top: "small" }}
+            critical
+            onClick={() => this.setState({ showDeleteLayer: true })}
+          />
         </Box>
       </Box>
     );

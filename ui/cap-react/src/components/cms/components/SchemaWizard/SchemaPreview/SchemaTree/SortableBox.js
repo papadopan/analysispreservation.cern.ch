@@ -13,7 +13,7 @@ function getStyle(opacity) {
   };
 }
 
-function SortableBox({ parent, children, id, index, moveCard }) {
+function SortableBox({ parent, children, id, index, moveCard, text }) {
   const ref = useRef(null);
   const [, drop] = useDrop({
     accept: `RE-${parent}`,
@@ -62,7 +62,9 @@ function SortableBox({ parent, children, id, index, moveCard }) {
     item: {
       type: `RE-${parent}`,
       index,
-      id
+      id,
+      path: parent,
+      text
     },
     collect: monitor => ({
       isDragging: monitor.isDragging()
@@ -83,7 +85,8 @@ SortableBox.propTypes = {
   children: PropTypes.node,
   id: PropTypes.number,
   index: PropTypes.number,
-  moveCard: PropTypes.func
+  moveCard: PropTypes.func,
+  text: PropTypes.string
 };
 
 export default SortableBox;

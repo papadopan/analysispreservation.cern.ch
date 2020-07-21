@@ -9,6 +9,8 @@ import SchemaTree from "../../../containers/SchemaTree";
 import CodeIcon from "grommet/components/icons/base/Code";
 import TreeIcon from "grommet/components/icons/base/Tree";
 
+import DeleteBox from "./SchemaTree/DeleteBox";
+
 class SchemaPreview extends React.Component {
   constructor(props) {
     super(props);
