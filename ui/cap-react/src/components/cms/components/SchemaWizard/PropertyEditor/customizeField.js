@@ -171,7 +171,8 @@ class CustomizeField extends React.Component {
                 {this.props.path
                   .toJS()
                   .path.filter(item => item != "properties" && item != "items")
-                  .map((item, index) => <code key={index + item}>{item}</code>)}
+                  .map(item => item)
+                  .join(" > ")}
               </Box>
 
               <Box margin={{ top: "medium" }} direction="row" justify="between">
@@ -450,7 +451,8 @@ CustomizeField.propTypes = {
   uiSchema: PropTypes.object,
   onSchemaChange: PropTypes.func,
   onUiSchemaChange: PropTypes.func,
-  path: PropTypes.array
+  path: PropTypes.array,
+  deleteByPath: PropTypes.func
 };
 
 export default CustomizeField;

@@ -11,14 +11,11 @@ import {
 
 const ObjectFieldTemplate = function(props) {
   const [cards, setCards] = useState([]);
-  useEffect(
-    () => {
-      cards.map((card, index) => {
-        card.prop = props.properties[index];
-      });
-    },
-    [props.properties]
-  );
+  useEffect(() => {
+    cards.map((card, index) => {
+      card.prop = props.properties[index];
+    });
+  }, [props.properties]);
 
   // create a new array to keep track of the changes in the order
   props.properties.map((prop, index) => {
@@ -36,22 +33,28 @@ const ObjectFieldTemplate = function(props) {
   // update the uiSchema after the cards update
   // removes the ids and updates the ui:orded with the new one
   // everytyhing else remains the same
-  useEffect(
-    () => {
-      let uiCards = cards.map(item => item.text);
-      let { ...rest } = props.uiSchema;
-      // when the ui:order is updated, the asterisk is appended in the end,
-      // in order to accept new added components and order them in the end of the list
-      props.onUiSchemaChange(
-        props.formContext.uiSchema.length > 0 ? props.formContext.uiSchema : [],
-        {
-          ...rest,
-          "ui:order": [...uiCards, "*"]
-        }
+  useEffect(() => {
+    let uiCards = cards.map(item => item.text);
+    let { ...rest } = props.uiSchema;
+
+    // this is needed for the delete purpose
+    // make sure that the cards are going according to the current uiSchema
+    if (props.uiSchema["ui:order"]) {
+      uiCards = uiCards.filter(item =>
+        props.uiSchema["ui:order"].includes(item)
       );
-    },
-    [cards, props.properties]
-  );
+    }
+
+    // when the ui:order is updated, the asterisk is appended in the end,
+    // in order to accept new added components and order them in the end of the list
+    props.onUiSchemaChange(
+      props.formContext.uiSchema.length > 0 ? props.formContext.uiSchema : [],
+      {
+        ...rest,
+        "ui:order": [...uiCards, "*"]
+      }
+    );
+  }, [cards, props.properties]);
 
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
@@ -59,7 +62,10 @@ const ObjectFieldTemplate = function(props) {
       if (dragCard) {
         setCards(
           update(cards, {
-            $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
+            $splice: [
+              [dragIndex, 1],
+              [hoverIndex, 0, dragCard]
+            ]
           })
         );
       }
@@ -93,7 +99,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  state => state,
-  mapDispatchToProps
-)(ObjectFieldTemplate);
+export default connect(state => state, mapDispatchToProps)(ObjectFieldTemplate);
