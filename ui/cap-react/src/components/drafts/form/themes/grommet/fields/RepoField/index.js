@@ -287,7 +287,7 @@ class RepoField extends React.Component {
 RepoField.propTypes = {
   onChange: PropTypes.func,
   uiSchema: PropTypes.object,
-  formData: PropTypes.string,
+  formData: PropTypes.array,
   uploadViaRepoUrl: PropTypes.func,
   id: PropTypes.string
 };
