@@ -433,11 +433,15 @@ class RxInputBase extends Component {
       this.input = aDomElem;
     };
 
+    const rest = Object.assign({}, props);
+    delete rest["enableWarningMessage"];
+    delete rest["warningMessage"];
+
     let input = (
       <input
         key="rx-input-base-input"
         className={this.inputClassName()}
-        {...props}
+        {...rest}
         ref={setRef}
         maxLength={patternLength}
         onChange={this._onChange}
@@ -458,7 +462,7 @@ class RxInputBase extends Component {
 
 RxInputBase.propTypes = {
   placeholder: PropTypes.string,
-  mask: PropTypes.instanceOf(RegExp),
+  mask: PropTypes.oneOfType([PropTypes.instanceOf(RegExp), PropTypes.string]),
   value: PropTypes.string,
   selection: PropTypes.string,
   onKeyDown: PropTypes.func,
