@@ -24,6 +24,8 @@ const SearchTag = ({
 
   delete params["q"];
   delete params["type"];
+  delete params["by_me"];
+  delete params["page"];
 
   return (
     <Box
