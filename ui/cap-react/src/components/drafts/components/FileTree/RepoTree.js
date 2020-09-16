@@ -24,12 +24,12 @@ class RepoTree extends React.Component {
     let repos = this.props.repos;
 
     return repos && repos.length > 0 ? (
-      repos[0].children.map(resource => (
-        <Box key={resource}>
-          {resource.children.map(owner => (
-            <Box key={owner}>
-              {owner.children.map(repo => (
-                <Box key={`${owner.name}/${repo.name}`}>
+      repos[0].children.map((resource, index) => (
+        <Box key={resource + index}>
+          {resource.children.map((owner, index) => (
+            <Box key={owner + index}>
+              {owner.children.map((repo, index) => (
+                <Box key={`${owner.name}/${repo.name}/${index}`}>
                   <Box
                     style={{ padding: "3px 1px" }}
                     flex={true}

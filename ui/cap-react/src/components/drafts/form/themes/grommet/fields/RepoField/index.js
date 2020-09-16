@@ -244,7 +244,7 @@ class RepoField extends React.Component {
                 margin={{ bottom: "small" }}
                 colorIndex="light-2"
                 direction="row"
-                wrap="false"
+                wrap={false}
               >
                 <Notification
                   text={
@@ -264,7 +264,7 @@ class RepoField extends React.Component {
               </Box>
             )}
           {_message.status == "success" && (
-            <Box margin={{ bottom: "small" }} colorIndex="light-2" wrap="false">
+            <Box margin={{ bottom: "small" }} colorIndex="light-2" wrap={false}>
               <Notification
                 icon={<TipIcon size="small" />}
                 text={
@@ -287,7 +287,7 @@ class RepoField extends React.Component {
 RepoField.propTypes = {
   onChange: PropTypes.func,
   uiSchema: PropTypes.object,
-  formData: PropTypes.array,
+  formData: PropTypes.object,
   uploadViaRepoUrl: PropTypes.func,
   id: PropTypes.string
 };
