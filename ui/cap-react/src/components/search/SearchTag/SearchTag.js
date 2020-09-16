@@ -49,27 +49,28 @@ const SearchTag = ({
           />
         )}
       {types &&
-        types.map(type => (
+        types.map((type, index) => (
           <Tag
-            key={type}
+            key={type + index}
             text={`Type: ${decodeURIComponent(type)}`}
             onClick={() => removeQuery("type", decodeURIComponent(type))}
           />
         ))}
       {Object.entries(params) &&
         Object.entries(params).map(
-          (item, index) =>
+          item =>
             Array.isArray(item[1]) ? (
-              item[1].map(second => (
+              item[1].map((second, index) => (
                 <Tag
                   background="#f1f1f1"
-                  key={index + second}
+                  key={index + second + item[0]}
                   text={`${item[0]}:${decodeURIComponent(second)}`}
                   onClick={() => onClick(item[0], second)}
                 />
               ))
             ) : (
               <Tag
+                key={item[0] + item[1]}
                 background="#f1f1f1"
                 text={`${item[0]}:${decodeURIComponent(item[1])}`}
                 onClick={() => onClick(item[0], item[1])}
