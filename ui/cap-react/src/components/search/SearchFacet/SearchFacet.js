@@ -157,7 +157,7 @@ SearchFacet.propTypes = {
   facets: PropTypes.object,
   isAggSelected: PropTypes.func,
   onChange: PropTypes.func,
-  collapsed: PropTypes.array,
+  collapsed: PropTypes.object,
   updateFacet: PropTypes.func,
   selectedAggs: PropTypes.object
 };
