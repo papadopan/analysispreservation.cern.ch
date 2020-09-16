@@ -52,7 +52,7 @@ class CleanForm extends React.Component {
 CleanForm.propTypes = {
   schema: PropTypes.object,
   uiSchema: PropTypes.object,
-  formData: PropTypes.array,
+  formData: PropTypes.object,
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,
   children: PropTypes.object,

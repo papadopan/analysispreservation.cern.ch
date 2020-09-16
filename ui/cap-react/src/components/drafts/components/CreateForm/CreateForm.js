@@ -119,7 +119,7 @@ const CreateForm = props => {
 
 CreateForm.propTypes = {
   title: PropTypes.string,
-  contentTypes: PropTypes.array,
+  contentTypes: PropTypes.object,
   createDraft: PropTypes.func,
   anatype: PropTypes.string,
   metadata: PropTypes.object,

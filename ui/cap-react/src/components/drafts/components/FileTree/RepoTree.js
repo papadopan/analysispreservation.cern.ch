@@ -34,7 +34,7 @@ class RepoTree extends React.Component {
                     style={{ padding: "3px 1px" }}
                     flex={true}
                     direction="row"
-                    wrap="false"
+                    wrap={false}
                     align="center"
                   >
                     <Box style={{ marginRight: "4px" }}>
