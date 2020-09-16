@@ -348,7 +348,7 @@ FileItem.propTypes = {
   canUpdate: PropTypes.bool,
   match: PropTypes.object,
   filename: PropTypes.string,
-  versions: PropTypes.array,
+  versions: PropTypes.object,
   versionLoading: PropTypes.bool,
   getFileVersions: PropTypes.func
 };
