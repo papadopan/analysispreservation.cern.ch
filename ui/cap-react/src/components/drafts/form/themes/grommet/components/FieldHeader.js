@@ -3,11 +3,12 @@ import PropTypes from "prop-types";
 
 import Box from "grommet/components/Box";
 import Heading from "grommet/components/Heading";
+import Label from "grommet/components/Label";
 import Paragraph from "grommet/components/Paragraph";
 
 import Anchor from "../../../../../partials/Anchor";
 
-let FieldHeader = function(props) {
+let FieldHeader = function (props) {
   const { title, required, description } = props;
   return (
     <Box
@@ -18,10 +19,17 @@ let FieldHeader = function(props) {
       <Box flex={true} justify="center">
         <Box flex={true}>
           {title ? (
-            <Heading tag="h4" margin="none" strong={false}>
+            <Label
+              size="small"
+              // uppercase={true}
+              style={{
+                fontWeight: 600,
+                fontStyle: "italic"
+              }}
+            >
               {title}
               {required ? "*" : null}
-            </Heading>
+            </Label>
           ) : null}
         </Box>
         {description ? (
@@ -51,21 +59,22 @@ let FieldHeader = function(props) {
           </Anchor>
         </Box>
       )}
-      {props.pasteable && (
-        <Box flex={false} align="center" justify="start">
-          <Anchor
-            alignSelf="center"
-            direction="row"
-            flex={false}
-            wrap={false}
-            align="start"
-            style={{ paddingTop: "4px", textDecoration: "underline" }}
-            onClick={props.enableImport}
-          >
-            Import from a list
-          </Anchor>
-        </Box>
-      )}
+      {props.pasteable &&
+        !props.readonly && (
+          <Box flex={false} align="center" justify="start">
+            <Anchor
+              alignSelf="center"
+              direction="row"
+              flex={false}
+              wrap={false}
+              align="start"
+              style={{ paddingTop: "4px", textDecoration: "underline" }}
+              onClick={props.enableImport}
+            >
+              Import from a list
+            </Anchor>
+          </Box>
+        )}
     </Box>
   );
 };
