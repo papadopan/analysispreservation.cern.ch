@@ -8,6 +8,24 @@ import { AiOutlineLink } from "react-icons/ai";
 
 import axios from "axios";
 
+// schema for the importDataField
+// "statistics_questionnaire": {
+//   "properties": {
+//     "$ref": {
+//       "type": "string"
+//     }
+//   },
+//   "title": "Statistics Questionnare"
+// }
+// uiSchema for the ImportDataField
+// "statistics_questionnaire": {
+//   "ui:field": "ImportDataField",
+//   "ui:options": {
+//     "query": "/api/records/?type=cms-stats-questionnaire-v0.0.1"
+//   },
+//   "ui:object": "accordionObjectField"
+// }
+
 class ImportDataField extends React.Component {
   constructor(props) {
     super(props);
@@ -32,24 +50,6 @@ class ImportDataField extends React.Component {
       });
     }
   }
-
-  // schema for the importDataField
-  // "statistics_questionnaire": {
-  //   "properties": {
-  //     "$ref": {
-  //       "type": "string"
-  //     }
-  //   },
-  //   "title": "Statistics Questionnare"
-  // }
-  // uiSchema for the ImportDataField
-  // "statistics_questionnaire": {
-  //   "ui:field": "ImportDataField",
-  //   "ui:options": {
-  //     "query": "/api/records/?type=cms-stats-questionnaire-v0.0.1"
-  //   },
-  //   "ui:object": "accordionObjectField"
-  // }
 
   render() {
     return this.state.link ? (
