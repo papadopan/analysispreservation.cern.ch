@@ -122,8 +122,8 @@ class DepositAccess extends React.Component {
           <Box pad="small" colorIndex="light-2">
             <Box flex={false} pad={{ between: "small" }}>
               {this.props.canAdmin && (
-                <Box flex={true} direction="row" justify="center">
-                  <Box direction="row" pad="small">
+                <Box flex={true} direction="row" justify="center" responsive={false}>
+                  <Box direction="row" pad="small" >
                     <RadioButton
                       id="user"
                       name="user"
@@ -146,6 +146,7 @@ class DepositAccess extends React.Component {
                     flex={true}
                     justify="center"
                     align="center"
+                    responsive={false}
                   >
                     <Box size="medium">
                       <FormField>

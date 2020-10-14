@@ -35,22 +35,21 @@ class DepositSettings extends React.Component {
     return (
       <Box
         flex={false}
-        size={{ width: "xxlarge" }}
         alignSelf="center"
         pad="small"
+        className="deposit-settings"
       >
         <Box margin={{ vertical: "small" }}>
           <Heading tag="h3">Publish your analysis</Heading>
           <Box
-            direction="row"
+            className="deposit-settings-row-to-column"
             style={{
               border: "1px solid #e6e6e6",
               borderRadius: "3px",
               padding: "10px"
             }}
-            justify="between"
           >
-            <Box>
+            <Box >
               <Paragraph margin="none">
                 <strong>Publishing</strong> is the way to preserve your work
                 within CAP (and CAP only). <br /> It makes a snapshot of
@@ -64,7 +63,8 @@ class DepositSettings extends React.Component {
             </Box>
             <Box
               flex
-              align="end"
+              className="deposit-settings-publish-button"
+              
               justify={isPublishedOnce ? "between" : "center"}
             >
               <React.Fragment>
@@ -112,14 +112,14 @@ class DepositSettings extends React.Component {
             </Box>
           </Box>
         </Box>
-        <Box flex={false}>
+        <Box margin={{bottom:"small"}}>
           <DepositAccess />
         </Box>
-        <Box flex={false}>
+        <Box margin={{bottom:"small"}}>
           <DepositReviews />
         </Box>
         {this.props.canAdmin && (
-          <Box flex>
+          <Box margin={{bottom:"small"}}>
             <Heading tag="h3">Delete your analysis</Heading>
             <Box
               style={{
