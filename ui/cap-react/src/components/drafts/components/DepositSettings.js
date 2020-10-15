@@ -35,20 +35,19 @@ class DepositSettings extends React.Component {
     return (
       <Box
         flex={false}
-        size={{ width: "xxlarge" }}
         alignSelf="center"
         pad="small"
+        className="deposit-settings"
       >
         <Box margin={{ vertical: "small" }}>
           <Heading tag="h3">Publish your analysis</Heading>
           <Box
-            direction="row"
+            className="deposit-settings-row-to-column"
             style={{
               border: "1px solid #e6e6e6",
               borderRadius: "3px",
               padding: "10px"
             }}
-            justify="between"
           >
             <Box>
               <Paragraph margin="none">
@@ -62,11 +61,7 @@ class DepositSettings extends React.Component {
                 a new version tag.
               </Paragraph>{" "}
             </Box>
-            <Box
-              flex
-              align="end"
-              justify={isPublishedOnce ? "between" : "center"}
-            >
+            <Box flex className="deposit-settings-publish-button">
               <React.Fragment>
                 <Box
                   align="center"
@@ -112,14 +107,14 @@ class DepositSettings extends React.Component {
             </Box>
           </Box>
         </Box>
-        <Box flex={false}>
+        <Box margin={{ bottom: "small" }}>
           <DepositAccess />
         </Box>
-        <Box flex={false}>
+        <Box margin={{ bottom: "small" }}>
           <DepositReviews />
         </Box>
         {this.props.canAdmin && (
-          <Box flex>
+          <Box margin={{ bottom: "small" }}>
             <Heading tag="h3">Delete your analysis</Heading>
             <Box
               style={{

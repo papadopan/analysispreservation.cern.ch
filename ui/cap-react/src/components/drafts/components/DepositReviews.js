@@ -69,7 +69,13 @@ class DepositReviews extends React.Component {
           background: this.state.reviewFormType === type ? "#E6F7FF" : "#f5f5f5"
         }}
       >
-        <Box pad="small" align="center" justify="between" direction="row">
+        <Box
+          pad="small"
+          align="center"
+          justify="between"
+          direction="row"
+          responsive={false}
+        >
           <Heading tag="h4" margin="none">
             {title}
           </Heading>
@@ -96,6 +102,7 @@ class DepositReviews extends React.Component {
                 direction="row"
                 justify="between"
                 pad={{ between: "small" }}
+                responsive={false}
               >
                 {this.renderReviewTypeButton(
                   "approved",
@@ -137,6 +144,7 @@ class DepositReviews extends React.Component {
                 direction="row"
                 justify="between"
                 margin={{ top: "large" }}
+                responsive={false}
               >
                 <Button
                   text="Cancel"
@@ -165,7 +173,13 @@ class DepositReviews extends React.Component {
 
     return (
       <Box margin={{ bottom: "medium" }} flex={false}>
-        <Box flex={false} direction="row" wrap={false} justify="between">
+        <Box
+          flex={false}
+          direction="row"
+          wrap={false}
+          justify="between"
+          responsive={false}
+        >
           <Heading tag="h3">Reviews</Heading>
           {this.props.canReview && (
             <Button

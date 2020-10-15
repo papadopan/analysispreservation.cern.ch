@@ -119,7 +119,7 @@ class DepositReviewItem extends React.Component {
           pad={{ horizontal: "small", vertical: "small", between: "small" }}
         >
           <Box flex={true}>
-            <Box direction="row">
+            <Box direction="row" responsive={false}>
               <Heading tag="h5" margin={review.resolved ? "none" : null}>
                 {this.renderReviewTypeHeading(review.type)} by{" "}
                 <a href={`mailto:${review.reviewer}`}>{review.reviewer}</a>
@@ -164,7 +164,12 @@ class DepositReviewItem extends React.Component {
             )}
           </Box>
           {!review.resolved && (
-            <Box direction="row" justify="between" margin={{ top: "small" }}>
+            <Box
+              direction="row"
+              justify="between"
+              margin={{ top: "small" }}
+              responsive={false}
+            >
               {/* <Button
                 key="Comment"
                 text="Comment"
