@@ -199,6 +199,26 @@ export function updateSchemaByPath(path, value) {
   };
 }
 
+export function uuup(path, value) {
+  return function(dispatch, getState) {
+    let state = getState();
+    let schema = getState()
+      .schemaWizard.getIn(["current", "schema"])
+      .toJS();
+
+    let uiSchema = getState()
+      .schemaWizard.getIn(["current", "uiSchema"])
+      .toJS();
+    console.log("====================================");
+    console.log(path);
+    console.log(value);
+    console.log(schema);
+    console.log(uiSchema);
+    console.log("====================================");
+    dispatch(updateSchemaByPath(path, value));
+  };
+}
+
 export function updateUiSchemaByPath(path, value) {
   return {
     type: CURRENT_UPDATE_UI_SCHEMA_PATH,

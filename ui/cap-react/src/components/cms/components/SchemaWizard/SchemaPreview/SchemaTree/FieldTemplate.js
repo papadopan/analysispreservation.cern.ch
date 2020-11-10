@@ -11,6 +11,7 @@ import ObjectFieldTemplate from "./ObjectFieldTemplate";
 import { connect } from "react-redux";
 import { addByPath } from "../../../../../../actions/schemaWizard";
 import { _validate } from "./utils/validate";
+import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 
 const widgets = {
   TextWidget: TextWidget
@@ -52,16 +53,17 @@ const FieldTemplate = props => {
         <div
           style={{
             position: "absolute",
-            top: "15px",
-            left: "-15px",
+            top: "10px",
+            left: "-18px",
             cursor: "pointer"
           }}
           onClick={() => setDisplay(!display)}
         >
-          <ViewIcon
-            size="xsmall"
-            colorIndex={display ? "grey-1" : "grey-3-a"}
-          />
+          {display ? (
+            <AiOutlineUp color="#000" />
+          ) : (
+            <AiOutlineDown color="#000" />
+          )}
         </div>
 
         <SchemaTreeItem type="object" {...props} path={path} />

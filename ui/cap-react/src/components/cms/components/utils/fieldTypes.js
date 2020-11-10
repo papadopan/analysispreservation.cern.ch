@@ -21,29 +21,6 @@ const simple = {
       uiSchema: {}
     }
   },
-  object: {
-    title: "JSON Object",
-    description: "Data in JSON format, Grouped section",
-    child: {},
-    default: {
-      schema: {
-        type: "object",
-        properties: {}
-      },
-      uiSchema: {}
-    }
-  },
-  reference: {
-    title: "Reference",
-    description: "For example, an analysis can reference its author(s)",
-    child: {},
-    default: {
-      schema: {
-        type: "string"
-      },
-      uiSchema: {}
-    }
-  },
   boolean: {
     title: "Boolean",
     description: "Yes or no, 1 or 0, true or false",
@@ -71,50 +48,8 @@ const simple = {
 };
 
 const advanced = {
-  accordion: {
-    title: "Accordion Field",
-    description: "Data in JSON format, Grouped section",
-    child: {},
-    default: {
-      schema: {
-        type: "object",
-        properties: {}
-      },
-      uiSchema: {
-        "ui:object": "accordionObjectField"
-      }
-    }
-  },
-  tabfield: {
-    title: "Tab Field",
-    description: "Data in JSON format, Grouped section",
-    child: {},
-    default: {
-      schema: {
-        type: "object",
-        properties: {}
-      },
-      uiSchema: {
-        "ui:object": "tabView"
-      }
-    }
-  },
-  layer: {
-    title: "Layer/Modal Field",
-    description: "Data in JSON format, Grouped section",
-    child: {},
-    default: {
-      schema: {
-        type: "object",
-        properties: {}
-      },
-      uiSchema: {
-        "ui:object": "layerObjectField"
-      }
-    }
-  },
   zenodo: {
-    title: "Zenodo Field",
+    title: "Zenodo",
     description: "Data in JSON format, Grouped section",
     child: {},
     default: {
@@ -134,7 +69,7 @@ const advanced = {
     }
   },
   orcid: {
-    title: "ORCiD Field",
+    title: "ORCiD",
     description: "Data in JSON format, Grouped section",
     child: {},
     default: {
@@ -154,7 +89,7 @@ const advanced = {
     }
   },
   getterId: {
-    title: "Id Getter Field",
+    title: "Id Getter",
     description: "Data in JSON format, Grouped section",
     child: {},
     default: {
@@ -182,7 +117,7 @@ const advanced = {
     }
   },
   ror: {
-    title: "ROR Field",
+    title: "ROR",
     description: "Data in JSON format, Grouped section",
     child: {},
     default: {
@@ -202,7 +137,7 @@ const advanced = {
     }
   },
   tags: {
-    title: "Tags Field",
+    title: "Tags",
     description: "Add keywords, tags, etc",
     child: {},
     default: {
@@ -216,14 +151,85 @@ const advanced = {
   }
 };
 
+const Structure = {
+  tabfield: {
+    title: "Tab",
+    description: "Data in JSON format, Grouped section",
+    child: {},
+    default: {
+      schema: {
+        type: "object",
+        properties: {}
+      },
+      uiSchema: {
+        "ui:object": "tabView"
+      }
+    }
+  }
+};
+
+const objects = {
+  accordion: {
+    title: "Accordion",
+    description: "Data in JSON format, Grouped section",
+    child: {},
+    default: {
+      schema: {
+        type: "object",
+        properties: {}
+      },
+      uiSchema: {
+        "ui:object": "accordionObjectField"
+      }
+    }
+  },
+  object: {
+    title: "JSON",
+    description: "Data in JSON format, Grouped section",
+    child: {},
+    default: {
+      schema: {
+        type: "object",
+        properties: {}
+      },
+      uiSchema: {}
+    }
+  },
+  layer: {
+    title: "Layer/Modal",
+    description: "Data in JSON format, Grouped section",
+    child: {},
+    default: {
+      schema: {
+        type: "object",
+        properties: {}
+      },
+      uiSchema: {
+        "ui:object": "layerObjectField"
+      }
+    }
+  }
+};
+
 const fields = {
+  structure: {
+    title: "Structure Block",
+    description: "",
+    fields: Structure
+  },
+  objects: {
+    title: "Objects",
+    description: "",
+    fields: objects
+  },
+
   advanced: {
-    title: "Advanced Fields",
+    title: "Fields",
     description: "",
     fields: advanced
   },
   simple: {
-    title: "Simple Fields",
+    title: "Widgets",
     description: "",
     fields: simple
   }
