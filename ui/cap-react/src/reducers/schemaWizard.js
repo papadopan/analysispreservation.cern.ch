@@ -69,7 +69,7 @@ export default function schemaReducer(state = initialState, action) {
     //   return state.set("field", null);
     case CREATE_MODE_ENABLE:
       return state.set("field", null);
-    case CURRENT_UPDATE_PATH:
+    case CURRENT_UPDATE_PATH: {
       return state
         .setIn(
           ["current", "schema", ...action.path.schema],
@@ -79,11 +79,13 @@ export default function schemaReducer(state = initialState, action) {
           ["current", "uiSchema", ...action.path.uiSchema],
           fromJS(action.value.uiSchema)
         );
-    case CURRENT_UPDATE_SCHEMA_PATH:
+    }
+    case CURRENT_UPDATE_SCHEMA_PATH: {
       return state.setIn(
         ["current", "schema", ...action.path],
         fromJS(action.value)
       );
+    }
     case CURRENT_UPDATE_UI_SCHEMA_PATH:
       return state.setIn(
         ["current", "uiSchema", ...action.path],

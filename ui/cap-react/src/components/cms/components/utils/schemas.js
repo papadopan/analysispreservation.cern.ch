@@ -37,6 +37,12 @@ export const schemaSchema = {
         "The title of the form field. How it will be displayed on the rendered form.",
       type: "string"
     },
+    name: {
+      title: "ID Identifier",
+      description:
+        "The id that will identify the field. It is displayed in the boxes under the title",
+      type: "string"
+    },
     description: {
       title: "Description",
       description:
