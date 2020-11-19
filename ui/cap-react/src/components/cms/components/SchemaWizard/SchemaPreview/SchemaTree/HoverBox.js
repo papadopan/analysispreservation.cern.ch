@@ -41,8 +41,8 @@ function HoverBox({ path, propKey, addProperty, children, index }) {
 }
 
 HoverBox.propTypes = {
-  children: PropTypes.element,
-  path: PropTypes.array,
+  children: PropTypes.node,
+  path: PropTypes.object,
   addProperty: PropTypes.func,
   propKey: PropTypes.string,
   index: PropTypes.number

@@ -79,7 +79,7 @@ function SortableBox({ parent, children, id, index, moveCard }) {
 }
 
 SortableBox.propTypes = {
-  parent: PropTypes.string,
+  parent: PropTypes.array,
   children: PropTypes.node,
   id: PropTypes.number,
   index: PropTypes.number,

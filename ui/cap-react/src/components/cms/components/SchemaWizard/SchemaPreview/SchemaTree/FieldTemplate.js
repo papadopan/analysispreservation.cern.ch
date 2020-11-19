@@ -103,7 +103,7 @@ const FieldTemplate = props => {
 
 FieldTemplate.propTypes = {
   id: PropTypes.string,
-  children: PropTypes.element,
+  children: PropTypes.node,
   formContext: PropTypes.object,
   rawErrors: PropTypes.array,
   uiSchema: PropTypes.object,

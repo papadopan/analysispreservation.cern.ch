@@ -274,7 +274,7 @@ Button.propTypes = {
   background: PropTypes.string,
   color: PropTypes.string,
   pad: PropTypes.object,
-  margin: PropTypes.object,
+  margin: PropTypes.string,
   loading: PropTypes.bool,
   criticalOutline: PropTypes.bool,
   primaryPublished: PropTypes.bool,

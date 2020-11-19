@@ -36,7 +36,7 @@ const ErrorFieldIndicator = ({
 };
 
 ErrorFieldIndicator.propTypes = {
-  formErrors: PropTypes.array,
+  formErrors: PropTypes.object,
   id: PropTypes.string,
   children: PropTypes.element,
   tab: PropTypes.bool,

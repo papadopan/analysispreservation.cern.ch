@@ -92,7 +92,7 @@ class SchemaTreeItem extends React.Component {
 SchemaTreeItem.propTypes = {
   schema: PropTypes.object,
   id: PropTypes.string,
-  path: PropTypes.array,
+  path: PropTypes.object,
   selectProperty: PropTypes.func,
   addProperty: PropTypes.func,
   addItem: PropTypes.func,

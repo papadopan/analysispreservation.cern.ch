@@ -72,7 +72,6 @@ class SelectFieldType extends React.Component {
                 flex={false}
                 wrap={true}
                 justify="start"
-                align="between"
                 margin={{ bottom: "large" }}
               >
                 {Object.entries(type.fields).map(([key, type], index) => (
