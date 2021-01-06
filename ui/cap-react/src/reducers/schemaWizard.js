@@ -1,4 +1,5 @@
 import { Map, fromJS } from "immutable";
+import undoable, { includeAction } from "redux-undo";
 
 import {
   SCHEMA_INIT,
@@ -34,7 +35,7 @@ const initialState = Map({
   loader: false
 });
 
-export default function schemaReducer(state = initialState, action) {
+function schemaReducer(state = initialState, action) {
   switch (action.type) {
     case SCHEMA_INIT_REQUEST:
       return state.set("loader", true);
@@ -100,3 +101,9 @@ export default function schemaReducer(state = initialState, action) {
       return state;
   }
 }
+
+const undoableSchema = undoable(schemaReducer, {
+  filter: includeAction([SCHEMA_INIT, CURRENT_UPDATE_PATH])
+});
+
+export default undoableSchema;

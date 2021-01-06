@@ -16,7 +16,7 @@ import SettingsModal from "./SettingsModal";
 import { AiOutlineSetting, AiOutlineArrowLeft } from "react-icons/ai";
 import { FaCode } from "react-icons/fa";
 import JsonDiff from "./JSONDiff";
-
+import UndoRedo from "./UndoRedo";
 import Truncate from "react-truncate";
 
 ["json"].forEach(lang => {
@@ -132,6 +132,7 @@ class SchemaWizardHeader extends React.Component {
               </Truncate>
             )}
           </Box>
+          <UndoRedo key="undoRedo" />
           <Box direction="row" wrap={false} pad={{ between: "small" }}>
             <Button
               icon={<DownloadIcon size="xsmall" />}
