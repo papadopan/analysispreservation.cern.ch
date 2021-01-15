@@ -139,9 +139,9 @@ export function createContentType(content_type) {
   };
 }
 
-export function selectContentType(id) {
+export function selectContentType(id, version) {
   return function(dispatch) {
-    dispatch(getSchema(id));
+    dispatch(getSchema(id, version));
     dispatch(push(`/cms/edit`));
   };
 }

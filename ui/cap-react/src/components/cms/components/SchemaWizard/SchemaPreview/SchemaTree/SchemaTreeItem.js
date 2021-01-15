@@ -31,10 +31,15 @@ class SchemaTreeItem extends React.Component {
   };
 
   render() {
+    console.log("====================================");
+    console.log(this.props);
+    console.log("====================================");
     let _id =
-      this.props.type == "array"
-        ? this.props.path.schema[this.props.path.schema.length - 2]
-        : this.props.path.schema[this.props.path.schema.length - 1];
+      this.props.formContext.dependencyForm === true
+        ? "aa"
+        : this.props.type == "array"
+          ? this.props.path.schema[this.props.path.schema.length - 2]
+          : this.props.path.schema[this.props.path.schema.length - 1];
     return (
       <div
         style={{

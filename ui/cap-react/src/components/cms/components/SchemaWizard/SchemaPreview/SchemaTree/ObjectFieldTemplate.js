@@ -124,6 +124,7 @@ const ObjectFieldTemplate = function(props) {
     },
     [cards]
   );
+
   if (props.idSchema.$id == "root") {
     return (
       <Box>
@@ -143,6 +144,12 @@ ObjectFieldTemplate.propTypes = {
   uiSchema: PropTypes.object
 };
 
+function mapStateToProps(state) {
+  return {
+    dependencies: state.schemaWizard.getIn(["current", "schema"])
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     onUiSchemaChange: (path, schema) =>
@@ -151,6 +158,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  state => state,
+  mapStateToProps,
   mapDispatchToProps
 )(ObjectFieldTemplate);
