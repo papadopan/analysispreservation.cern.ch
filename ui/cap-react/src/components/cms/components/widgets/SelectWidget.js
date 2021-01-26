@@ -19,6 +19,7 @@ const SelectWidget = props => {
   return (
     <Select
       placeholder="Select position"
+      menuPortalTarget={document.querySelector(".fieldTemplate")}
       value={{
         value: props.value,
         label: (
