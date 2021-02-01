@@ -33,7 +33,6 @@ class Discover extends React.Component {
                 and it is designed to be easily integrated into researchers'
                 workflows. CAP provides standard collaboration access
                 restrictions so that the individual users and collaborations are
-                in full control of sharing their results.
               </Paragraph>
             </Box>
           </Box>

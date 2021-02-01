@@ -49,9 +49,10 @@ const simple = {
           enumNames: ["ReadOnly", "Editable"]
         },
         pattern: {
-          title: "Provide a regex that you want to test your input",
+          title:
+            "Provide a regex for your input, only when you want a strivt format",
           description:
-            "Complete this field, ONLY when you really want to provide a strict format",
+            "In order to be active, you have to split your regex into parts in the Field Layout info",
           type: "string",
           pattern: "^^[w]*$$"
         }
@@ -60,6 +61,90 @@ const simple = {
     optionsSchemaUiSchema: {
       readOnly: {
         "ui:widget": "select"
+      },
+      pattern: {
+        "ui:options": {
+          masked_array: [
+            {
+              fixed: "^",
+              placeholder: "^"
+            },
+            {
+              regexp: "^.*$",
+              placeholder: "XXXX"
+            },
+            { fixed: "$", placeholder: "$" }
+          ]
+        }
+      }
+    },
+    optionsUiSchema: {
+      type: "object",
+      title: "Switch Widget UI Options",
+      properties: {
+        "ui:options": {
+          type: "object",
+          title: "UI Options",
+          properties: {
+            grid: {
+              type: "object",
+              title: "Grid Options",
+              properties: {
+                gridColumns: {
+                  title: "Grid Columns",
+                  type: "string"
+                }
+              }
+            },
+            suggestions: {
+              type: "string",
+              title: "Add a suggestion URL endpoint",
+              description: "Provide an URL endpoint, to fetch data from there"
+            },
+            masked_array: {
+              type: "array",
+              title: "Add step-by-step validation for your pattern",
+              description:
+                "Split the regex into parts, and you will have real time validation for each part while writting",
+              items: {
+                type: "object",
+                title: "Regex parts",
+                properties: {
+                  placeholder: {
+                    type: "string",
+                    title: "placeholder",
+                    description: "Give a placeholder for your input "
+                  },
+                  length: {
+                    type: "integer",
+                    title: "Provide the max length",
+                    description: "This is the max length of this input part"
+                  },
+                  fixed: {
+                    type: "string",
+                    title: "Provide the fixed input",
+                    description:
+                      "This input is required only when there is a character"
+                  },
+                  regexp: {
+                    type: "string",
+                    title: "Provide the regexp of this part",
+                    pattern: "^^[w]*$$"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    optionsUiSchemaUiSchema: {
+      "ui:options": {
+        grid: {
+          gridColumns: {
+            "ui:widget": "selectColumns"
+          }
+        }
       }
     },
     default: {
@@ -67,7 +152,13 @@ const simple = {
         type: "string"
       },
       uiSchema: {
-        "ui:widget": "text"
+        "ui:widget": "text",
+        "ui:options": {
+          grid: {
+            gridColumns: "1/5"
+          },
+          masked_array: []
+        }
       }
     }
   },

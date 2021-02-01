@@ -132,19 +132,14 @@ const parseValue = (mask, value) => {
 
 const version = [
   {
-    regexp: /^[\d]{1,2}$/,
-    placeholder: "X"
+    fixed: "^",
+    placeholder: "^"
   },
-  { fixed: "." },
   {
-    regexp: /^[\d]{1,2}$/,
-    placeholder: "X"
+    regexp: "^.*$",
+    placeholder: "XXXX"
   },
-  { fixed: "." },
-  {
-    regexp: /^[\d]{1,2}$/,
-    placeholder: "X"
-  }
+  { fixed: "$", placeholder: "$" }
 ];
 
 const defaultMask = version;
