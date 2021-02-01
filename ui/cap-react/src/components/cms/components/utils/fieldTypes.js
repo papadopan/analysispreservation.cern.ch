@@ -47,6 +47,13 @@ const simple = {
           title: "Do you want this field to be read only?",
           enum: [true, false],
           enumNames: ["ReadOnly", "Editable"]
+        },
+        pattern: {
+          title: "Provide a regex that you want to test your input",
+          description:
+            "Complete this field, ONLY when you really want to provide a strict format",
+          type: "string",
+          pattern: "^^[w]*$$"
         }
       }
     },
